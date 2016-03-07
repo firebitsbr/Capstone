@@ -3,33 +3,54 @@
 
 class CrawlerConfig:
 
-    def __init__(self, location, protocol, speed, maxDepth, name):
-        self.location = location
-        self.protocol = protocol
-        self.speed = speed
-        self.maxDepth = maxDepth
-        self.name = name
+    def __init__(self, location, protocol, speed, maxDepth, name, depth=0):
+        self.location = location   # Location to crawl
+        self.protocol = protocol   # Protocol used
+        self.speed = speed         # Crawls per second
+        self.maxDepth = maxDepth   # Max Depth for
+        self.name = name           # Name of the crawl
+        self.depth = depth         # Current Depth
 
-    def get_location():
+    # Get Location
+    def get_location(self):
         return self.location
 
-    def get_protocol():
+    # Get Protocol
+    def get_protocol(self):
         return self.protocol
 
-    def get_speed():
+    # Get Speed
+    def get_speed(self):
         return self.speed
 
-    def get_maxDepth():
+    # Get Max Depth
+    def get_maxDepth(self):
         return self.maxDepth
 
-    def get_name():
+    # Get Name
+    def get_name(self):
         return self.name
 
-    def set_speed(speed):
+    # Get Depth
+    def get_depth(self):
+        return self.depth
+
+    # Increment Current Depth
+    def inc_depth(self):
+        self.depth+=1;
+
+    # Set Speed
+    def set_speed(self, speed):
         self.speed = speed
 
-    def set_maxDepth(maxDepth):
+    # Set Max Depth
+    def set_maxDepth(self, maxDepth):
         self.maxDepth = maxDepth
 
-    def set_name(name):
+    # Set Name
+    def set_name(self, name):
         self.name = name
+
+    # Set Depth
+    def set_depth(self, depth):
+        self.depth = depth
