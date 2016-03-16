@@ -1,5 +1,6 @@
-" Class for Configuring Crawlers "
-" Edward Mead "
+# Crawler Configuration
+# Defines what a crawler should do
+# Edward Mead
 
 class CrawlerConfig:
 
