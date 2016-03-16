@@ -70,6 +70,15 @@ class Crawler:
     def set_crawl_depth(self, depth):
         self.config.set_depth(depth)
 
+    # Get - Crawl Option
+    def get_crawl_options(self):
+        return self.config.get_options()
+
+    # Add - Crawl Option
+    # Option = key value pair <"Option", True/False>
+    def add_crawl_option(self, option, value):
+        return self.config.add_option(option, value)
+
     # Get - Result object
     def get_result(self):
         return self.result
@@ -133,5 +142,6 @@ class Crawler:
 
     def send_result(self, result):
         # @todo send results to ELK
+        print "send_result - Result: " + result
         print "Not implemented exception. To be added later."
         raise
