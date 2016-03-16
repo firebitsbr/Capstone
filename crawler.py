@@ -141,7 +141,7 @@ class Crawler:
         self.result.set_referrer(referrer)
 
     def send_result(self, result):
-        # @todo send results to ELK
+        # @todo send results to parser
         print "send_result - Result: " + result
         print "Not implemented exception. To be added later."
         raise
