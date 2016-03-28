@@ -26,8 +26,6 @@ class WebCrawler:
 
 	def doScrape(current_node):
 		#timeStart=
-		#tor = manageTor.open()
-		#manageTor.torProxy()
 		
 		#must import after the above two lines are executed
 		import urllib2
@@ -35,8 +33,7 @@ class WebCrawler:
 
 		try:
 			data = urllib2.urlopen(current_node.get_url()).read()
-		finally:
-			manageTor.close(tor)
+		#finally:
 		soup = BeautifulSoup(data)
 
 		lst=[None]
