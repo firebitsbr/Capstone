@@ -13,7 +13,7 @@ class IRC(Crawler):
     def __init__(self, config):
         self.irc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.config = config
-        self.server = config.get_location()
+        self.server = config.location
         self.nickname = config.options["nickname"]
         self.mins_interval = config.options["mins_interval"]
         self.total_mins = config.options["total_mins"]
@@ -115,24 +115,10 @@ class IRC(Crawler):
 if __name__ == "__main__":
     options = { 'nickname': "tnasty1",
                 'mins_interval': 1,
-                'total_mins': 2,    
-                'threads': 20
+                'total_mins': 1,    
+                'threads': 1
     }
-    #CrawlerConfig = location(server), protocol(IRC), speed(unused), maxDepth(unused), name(unsued)
+
     config = CrawlerConfig("irc.freenode.net", "IRC", "", "","", options)
-    #channel = "#linux" # where does channel fit into CrawlerConfig?
-    #source = (config.get_location(), channel)
-    #nickname = "tnasty1"
-    #mins_interval = config.get_speed() # how often to get data
-    #total_mins = config.get_maxDepth() # how long to run (total time)
 
     irc = IRC(config)
-    #irc.connect()
-    #channels = irc.getChannels()
-    #print(channels)
-    #print(len(channels))
-
-
-    # results_list = listen(irc, mins_interval, total_mins, config, cha)
-
-

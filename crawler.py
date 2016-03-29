@@ -3,6 +3,8 @@
 # Edward Mead
 from crawlerconfig import CrawlerConfig
 from result import Result
+import socket
+import jsonpickle
 
 class Crawler:
     name = "Default Crawler"
@@ -142,6 +144,19 @@ class Crawler:
 
     def send_result(self, result):
         # @todo send results to parser
-        print "send_result - Result: " + result
-        print "Not implemented exception. To be added later."
-        raise
+        conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        hostname = "parser" 
+        port = 443
+        try:
+            ser = jsonpickle.encode(result)
+        except:
+            print("Encode failed..." + str(result))
+            return
+
+        try:
+            conn.connect((hostname, port))
+            conn.sendall(ser.encode('utf-8'))
+            print("Sent all data.")
+        except Exception as e:
+            print("Error sending data/connecting. Error: " + str(e))
+            return 
