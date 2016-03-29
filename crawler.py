@@ -143,7 +143,9 @@ class Crawler:
         self.result.set_referrer(referrer)
 
     def send_result(self, result):
-        # @todo send results to parser
+        #send results to parser
+        # @todo test when there is a destination to send data to 
+        # @todo later goal implement ssl?   
         conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         hostname = "parser" 
         port = 443
