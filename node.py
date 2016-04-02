@@ -1,27 +1,22 @@
 class Node:
 
-	def __init__(self, parent, url, currentDepth)
+	def __init__(self, parent, url, currentDepth):
 		self.parent = parent
 		self.url = url
 		self.currentDepth = currentDepth
-		self.children = [None]
+		self.children = []
 
-	def __init__(self, url, currentDepth)
-		self.parent = None
-		self.url = url
-		self.currentDepth = currentDepth
-
-	def get_url():
+	def get_url(self):
 		return self.url	
 
-	def get_parent():
+	def get_parent(self):
 		return self.parent
 
-	def get_currentDepth():
+	def get_currentDepth(self):
 		return self.currentDepth
 
-	def set_children(children):
+	def set_children(self, children):
 		self.children = list(children)
 
-	def get_children():
+	def get_children(self):
 		return self.children
