@@ -30,13 +30,13 @@ class WebCrawler(Crawler):
 			dummy = links.pop(0)
 		
 	def doScrape(self, current_node):
-        timeStart=datetime.datetime.now()
+        	timeStart=datetime.datetime.now()
 		if (config.protocol == tor):	# needs to be verified as the correct variable
 			tor = manageTor.open()
 			manageTor.torProxy()
 		#must import after the above two lines are executed
-        import urllib2
-        from bs4 import BeautifulSoup
+        	import urllib2
+        	from bs4 import BeautifulSoup
 
 		try:
 			data = urllib2.urlopen(current_node.get_url()).read()
