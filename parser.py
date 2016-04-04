@@ -48,11 +48,7 @@ class parser(socketserver.BaseRequestHandler):
             return True
         return False
 
-    def search_result(self, r):
-        if r != None and type(r).__name__ == "Result":
-
-
 if __name__ == "__main__":
-    HOST, PORT = "0.0.0.0", 443
-    server = socketserver.TCPServer((HOST, PORT), server)
-    server.serve_forever()
+    HOST, PORT = "0.0.0.0", 4443
+    parser = socketserver.TCPServer((HOST, PORT), parser)
+    parser.serve_forever()
