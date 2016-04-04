@@ -5,8 +5,8 @@ import socketserver
 import jsonpickle
 
 class parser(socketserver.BaseRequestHandler):
-    cert_file="/Users/emead/Documents/git/pybeacon/server/cert.pem"
-    key_file="/Users/emead/Documents/git/pybeacon/server/key.pem"
+    cert_file="<insert cert file>"
+    key_file="<insert cert file>"
 
     def __init__(self,search):
         self.search = search
@@ -50,3 +50,9 @@ class parser(socketserver.BaseRequestHandler):
 
     def search_result(self, r):
         if r != None and type(r).__name__ == "Result":
+
+
+if __name__ == "__main__":
+    HOST, PORT = "0.0.0.0", 443
+    server = socketserver.TCPServer((HOST, PORT), server)
+    server.serve_forever()
