@@ -5,8 +5,8 @@ import socketserver
 import jsonpickle
 
 class parser(socketserver.BaseRequestHandler):
-    cert_file="<insert cert file>"
-    key_file="<insert cert file>"
+    cert_file="<insert pub cert file>"
+    key_file="<insert priv cert file>"
 
     def __init__(self,search):
         self.search = search
