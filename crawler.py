@@ -3,6 +3,8 @@
 # Edward Mead
 from crawlerconfig import CrawlerConfig
 from result import Result
+import socket
+import jsonpickle
 
 class Crawler:
     name = "Default Crawler"
@@ -28,56 +30,56 @@ class Crawler:
 
     # Get - Crawl location
     def get_crawl_location(self):
-        return self.config.get_location()
+        return self.config.location
 
     # Get - Crawl protocol
     def get_crawl_protocol(self):
-        return self.config.get_protocol()
+        return self.config.protocol
 
     # Get - Crawl speed
     def get_crawl_speed(self):
-        return self.config.get_speed()
+        return self.config.speed
 
     # Get - Crawl max depth
     def get_crawl_maxDepth(self):
-        return self.config.get_maxDepth()
+        return self.config.maxDepth
 
     # Get - Crawl name
     def get_crawl_name(self):
-        return self.config.get_name()
+        return self.config.name
 
     # Get - Crawl depth
     def get_crawl_depth(self):
-        return self.config.get_depth()
+        return self.config.depth
 
     # Inc - Crawl Depth + 1
     def inc_crawl_depth(self):
-        self.config.inc_depth()
+        self.config.depth += 1
 
     # Set - Crawl speed
     def set_crawl_speed(self, speed):
-        self.config.set_speed(speed)
+        self.config.speed = speed
 
     # Set - Crawl max depth
     def set_crawl_maxDepth(self, maxDepth):
-        self.config.set_maxDepth(maxDepth)
+        self.config.maxDepth = maxDepth
 
     # Set - Crawl name
     def set_crawl_name(self, name):
-        self.config.set_name(name)
+        self.config.name = name
 
     # Set - Crawl depth
     def set_crawl_depth(self, depth):
-        self.config.set_depth(depth)
+        self.config.depth = depth
 
     # Get - Crawl Option
     def get_crawl_options(self):
-        return self.config.get_options()
+        return self.config.options
 
     # Add - Crawl Option
     # Option = key value pair <"Option", True/False>
     def add_crawl_option(self, option, value):
-        return self.config.add_option(option, value)
+        self.config.options[option] = value
 
     # Get - Result object
     def get_result(self):
@@ -141,7 +143,22 @@ class Crawler:
         self.result.set_referrer(referrer)
 
     def send_result(self, result):
-        # @todo send results to parser
-        print "send_result - Result: " + result
-        print "Not implemented exception. To be added later."
-        raise
+        #send results to parser
+        # @todo test when there is a destination to send data to 
+        # @todo later goal implement ssl?   
+        conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        hostname = "parser" 
+        port = 443
+        try:
+            ser = jsonpickle.encode(result)
+        except:
+            print("Encode failed..." + str(result))
+            return
+
+        try:
+            conn.connect((hostname, port))
+            conn.sendall(ser.encode('utf-8'))
+            print("Sent all data.")
+        except Exception as e:
+            print("Error sending data/connecting. Error: " + str(e))
+            return 
