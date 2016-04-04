@@ -41,8 +41,8 @@ class WebCrawler(Crawler):
 		try:
 			data = urllib2.urlopen(current_node.get_url()).read()
 		finally:
-		if (config.protocol == tor):	# needs to be verified as the correct variable
-			manageTor.close(tor)
+			if (config.protocol == tor):	# needs to be verified as the correct variable
+				manageTor.close(tor)
 		except:
 			print "Failled to retrieve " + current_node.get_url()
 			exit()
@@ -54,7 +54,7 @@ class WebCrawler(Crawler):
 			lst.append(a['href'])
 		for b in soup.find_all('link', href=True):
 			lst.append(b['href'])
-		fqlst=[]
+		fqlst=[]						# fully qualified list
 		for n in lst:
 			if not n.startswith("http"):
 				fqlst.append(current_node.get_url() + n)
@@ -80,6 +80,7 @@ class WebCrawler(Crawler):
 			manageTor.close(tor)
 			current_node.set_children(onion)
 		else:
+			# following robots yet to be implemented
 			current_node.set_children(fqlst)
 		timeEnd=datetime.datetime.now()
 		results = Results(crawlerconfig, timeStart, timeEnd, current_node.get_url(), current_node.get_parent(), data)
