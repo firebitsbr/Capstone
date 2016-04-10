@@ -6,6 +6,7 @@ import result
 import robotparser
 import datetime
 import time
+import re
 
 class WebCrawler(Crawler):
 
@@ -80,8 +81,21 @@ class WebCrawler(Crawler):
 			manageTor.close(tor)
 			current_node.set_children(onion)
 		else:
-			# following robots yet to be implemented
-			current_node.set_children(fqlst)
+			weblist=[]
+			for i in fqlst:
+				x=i.split("\") 				# custom regex
+				k=x[0]+"//"+x[2]+"/robots.txt"		# custom regex
+				rp = robotparser.RobotFileParser()
+				rp.set_url(k)
+				time.sleep(config.speed)
+				try:
+					rp.read()
+				except:
+					print "Host unreachable: " + k
+				if rp.can_fetch("*", i):
+					weblist.append(i)
+				# following robots yet to be implemented
+				current_node.set_children(weblist)
 		timeEnd=datetime.datetime.now()
 		results = Results(crawlerconfig, timeStart, timeEnd, current_node.get_url(), current_node.get_parent(), data)
 		return results
