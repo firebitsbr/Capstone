@@ -12,7 +12,7 @@ class WebCrawler(Crawler):
 
 	def __init__(self, config):
 		self.config = config
-		#self.results = Result(config)
+		self.results = Result(config)
 		self.links = []		
 
 	def doCrawl(self):
@@ -20,14 +20,16 @@ class WebCrawler(Crawler):
 		links.append(initial_node)
 		
 		results = self.doScrape(initial_node)
+		config.send_result(results)
 
 		while (links[0].get_currentDepth() < int(config.maxDepth)):
 			for child in links[0].get_children():
 				next_node = node(links[0].get_url(), child, links[0].get_currentDepth()+1)
 				links.append(next_node)
 				time.sleep(config.speed)
-				results = doScrape(next_node)
-				print results
+				results = self.doScrape(next_node)
+				config.send_results(results)
+				#print results
 			dummy = links.pop(0)
 		
 	def doScrape(self, current_node):
