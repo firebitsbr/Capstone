@@ -3,19 +3,29 @@ from elasticsearch_dsl import DocType, String, Date, Integer
 from elasticsearch_dsl.connections import connections
 from elasticsearch import Elasticsearch, RequestsHttpConnection
 
+es = Elasticsearch(
+    ['HOST'],
+    http_auth=('user', 'secret'),
+    port=443,
+    use_ssl=True,
+    verify_certs=True,
+    ca_certs='/path/to/cacert.pem',
+    client_cert='/path/to/client_cert.pem',
+    client_key='/path/to/client_key.pem',
+)
 connections.add_connection('default', es)
 
-class ES_Result(DocType):
+class es_result(DocType):
     source = String(analyzer='snowball')
     referrer = String(analyzer='snowball')
     data = String(analyzer='snowball')
-    datahash = String(analyzer='snowball')
+    dataHash = String(analyzer='snowball')
     regex_hit = Integer(analyzer='snowball')
     regex_hits = String(analyzer='snowball')
     searchterm_hit = Integer(analyzer='snowball')
     searchterm_hits = String(analyzer='snowball')
-    timestart = Date()
-    timeend = Date()
+    timeStart = Date()
+    timeEnd = Date()
     config_name = String(analyzer='snowball')
     config_location = String(analyzer='snowball')
     config_protocol = String(analyzer='snowball')
