@@ -64,6 +64,7 @@ print t.get_crawl_options()
 print t.get_result()
 print t.get_result_data()
 print t.get_result_dataHash()
+print t.result.dataBytes
 print t.get_result_source()
 print t.get_result_timeStart()
 print t.get_result_timeEnd()

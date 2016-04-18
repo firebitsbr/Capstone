@@ -2,6 +2,7 @@
 # Used to store the results of a Crawl
 # Edward Mead
 import hashlib
+import sys
 
 class Result:
     def __init__(self, crawlerConfig, timeStart = None, timeEnd = None, source = None, referrer = None, data = ""):
@@ -11,6 +12,7 @@ class Result:
         self.source = source                # Location
         self.referrer = referrer            # Previous Location
         self.data = data                    # Data from Location
+        self.dataBytes = 0                    # Data from Location
         self.dataHash = self.calc_hash(data)     # Hash of Data
 
     # Calculate Hash of some data
@@ -38,6 +40,7 @@ class Result:
     def set_data(self, data):
         self.data = data
         self.dataHash = self.calc_hash(data)
+        self.dataBytes = sys.getsizeof(data)
 
     # Add - Data obtained from the crawl
     # Hash is automatically updated

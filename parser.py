@@ -52,6 +52,7 @@ class parser(socketserver.BaseRequestHandler):
                 esr.referrer = r.referrer
                 esr.data = r.data
                 esr.dataHash = r.dataHash
+                esr.dataBytes = r.dataBytes
                 if len(regexhits) > 0:
                     esr.regex_hit = 1
                     esr.regex_hits = "\n".join(regex_hits)

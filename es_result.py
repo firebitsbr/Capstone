@@ -20,6 +20,7 @@ class es_result(DocType):
     referrer = String(analyzer='snowball')
     data = String(analyzer='snowball')
     dataHash = String(analyzer='snowball')
+    dataBytes = Integer(analyzer='snowball')
     regex_hit = Integer(analyzer='snowball')
     regex_hits = String(analyzer='snowball')
     searchterm_hit = Integer(analyzer='snowball')
