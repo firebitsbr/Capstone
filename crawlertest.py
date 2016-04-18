@@ -3,6 +3,7 @@
 # Edward Mead
 from crawler import Crawler
 from crawlerconfig import CrawlerConfig
+from WebCrawler import WebCrawler
 
 class TestCrawler(Crawler):
     name = "Test Crawler"
@@ -14,8 +15,10 @@ class TestCrawler(Crawler):
         print "Test Crawler - send_result"
 
 
-conf = CrawlerConfig("some website", "Some protocol", "<Speed>", "<depth>", "<Name>")
+conf = CrawlerConfig("http://3g2upl4pq6kufc4m.onion/", "tor", "0", "1", "testCrawl")
 t = TestCrawler(conf)
+test = WebCrawler(conf)
+test.doCrawl()
 
 # Test Gets
 print t.get_crawl_config()

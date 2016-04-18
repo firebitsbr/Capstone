@@ -1,5 +1,5 @@
 import manageTor						# only used for Tor
-import node								#
+from node import node								#
 from crawlerconfig import CrawlerConfig	#
 from crawler import Crawler				#
 import result
@@ -12,29 +12,30 @@ class WebCrawler(Crawler):
 
 	def __init__(self, config):
 		self.config = config
-		self.results = Result(config)
+		#self.results = Result(config)
 		self.links = []		
 
 	def doCrawl(self):
-		initial_node = node(config.location, 1)
-		links.append(initial_node)
+		initial_node = node(None, self.config.location, 1)
+		self.links.append(initial_node)
 		
 		results = self.doScrape(initial_node)
-		config.send_result(results)
+		#config.send_result(results)
+		print results
 
-		while (links[0].get_currentDepth() < int(config.maxDepth)):
-			for child in links[0].get_children():
-				next_node = node(links[0].get_url(), child, links[0].get_currentDepth()+1)
-				links.append(next_node)
-				time.sleep(config.speed)
+		while (self.links[0].get_currentDepth() < int(self.config.maxDepth)):
+			for child in self.links[0].get_children():
+				next_node = node(self.links[0].get_url(), child, self.links[0].get_currentDepth()+1)
+				self.links.append(next_node)
+				time.sleep(float(self.config.speed))
 				results = self.doScrape(next_node)
-				config.send_results(results)
-				#print results
-			dummy = links.pop(0)
+				#config.send_results(results)
+				print results
+			dummy = self.links.pop(0)
 		
 	def doScrape(self, current_node):
         	timeStart=datetime.datetime.now()
-		if (config.protocol == tor):	# needs to be verified as the correct variable
+		if (self.config.protocol == "tor"):	# needs to be verified as the correct variable
 			tor = manageTor.open()
 			manageTor.torProxy()
 		#must import after the above two lines are executed
@@ -43,12 +44,12 @@ class WebCrawler(Crawler):
 
 		try:
 			data = urllib2.urlopen(current_node.get_url()).read()
-		finally:
-			if (config.protocol == tor):	# needs to be verified as the correct variable
-				manageTor.close(tor)
 		except:
-			print "Failled to retrieve " + current_node.get_url()
+			print "Failed to retrieve " + current_node.get_url()
 			exit()
+		finally:
+			if (self.config.protocol == "tor"):	# needs to be verified as the correct variable
+				manageTor.close(tor)
 		soup = BeautifulSoup(data)
 
 		lst=[]
@@ -63,41 +64,50 @@ class WebCrawler(Crawler):
 				fqlst.append(current_node.get_url() + n)
 			else:
 				fqlst.append(n)
-		if (config.protocol == tor):
+		
+
+		option = "none"
+		if (self.config.protocol == "tor"):
 			tor = manageTor.open()
 			manageTor.torProxy()
 			onion=[]
 			for i in fqlst:
 				if ".onion" in i:
-					k = i[:29]
-					k+="/robots.txt"
-					rp = robotparser.RobotFileParser()
-					rp.set_url(k)
-					time.sleep(config.speed)
-					try:
-						rp.read()
-					except:
-						print "Host unreachable: " + k
-					if rp.can_fetch("*", i):
+					if(option == "--dishonor_robots.txt"):
 						onion.append(i)
+					else:
+						k = i[:29]
+						k+="/robots.txt"
+						rp = robotparser.RobotFileParser()
+						rp.set_url(k)
+						time.sleep(float(self.config.speed))
+						try:
+							rp.read()
+						except:
+							print "Host unreachable: " + k
+						if rp.can_fetch("*", i):
+							onion.append(i)
 			manageTor.close(tor)
 			current_node.set_children(onion)
 		else:
 			weblist=[]
 			for i in fqlst:
-				x=i.split("\") 				# custom regex
-				k=x[0]+"//"+x[2]+"/robots.txt"		# custom regex
-				rp = robotparser.RobotFileParser()
-				rp.set_url(k)
-				time.sleep(config.speed)
-				try:
-					rp.read()
-				except:
-					print "Host unreachable: " + k
-				if rp.can_fetch("*", i):
+				if(option == "--dishonor_robots.txt"):
 					weblist.append(i)
-				# following robots yet to be implemented
-				current_node.set_children(weblist)
+				else:
+					x=i.split("/") 				# custom regex
+					k=x[0]+"//"+x[2]+"/robots.txt"		# custom regex
+					rp = robotparser.RobotFileParser()
+					rp.set_url(k)
+					time.sleep(float(self.config.speed))
+					try:
+						rp.read()
+					except:
+						print "Host unreachable: " + k
+					if rp.can_fetch("*", i):
+						weblist.append(i)
+				
+			current_node.set_children(weblist)
 		timeEnd=datetime.datetime.now()
-		results = Results(crawlerconfig, timeStart, timeEnd, current_node.get_url(), current_node.get_parent(), data)
+		results = [self.config, timeStart, timeEnd, current_node.get_url(), current_node.get_parent(), data]
 		return results

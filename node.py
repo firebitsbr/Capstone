@@ -1,4 +1,4 @@
-class Node:
+class node:
 
 	def __init__(self, parent, url, currentDepth):
 		self.parent = parent
