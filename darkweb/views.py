@@ -1,6 +1,7 @@
 from flask import Flask, render_template, Blueprint, request
 from darkweb.modules.crawlerconfig import CrawlerConfig 
 from darkweb.modules.irc import IRC
+from darkweb.modules.WebCrawler import WebCrawler
 import threading 
 
 views = Blueprint("views", __name__)
@@ -28,12 +29,10 @@ def createCrawlerConfig():
 		msg = "Search falied. Speed much be an integer."
 	elif not maxDepth.isdigit():
 		msg = "Search failed. Max Crawl Depth must be an integer."
-	elif protocol == "tor":
-		pass	
 	elif protocol == "irc":
 		crawler = IRC(config)
-	elif protocol == "web":
-		pass
+	elif protocol == "tor" or protocol == "web":
+		crawler = WebCrawler(config) 
 	else:
 		msg = "Search failed invalid protocol.\nMust be TOR, IRC, or web"
 	if(crawler):
