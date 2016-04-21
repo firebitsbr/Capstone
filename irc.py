@@ -10,16 +10,34 @@ from result import *
 from crawlerconfig import * 
 
 class IRC(Crawler):
-    def __init__(self, config):
+    def __init__(self, config, channel=None, nickname="aaabbbcccddd", mins_interval="10", total_mins="60", threads="1"):
         self.irc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.config = config
         self.server = config.location
-        self.nickname = config.options["nickname"]
-        self.mins_interval = config.options["mins_interval"]
-        self.total_mins = config.options["total_mins"]
-        self.connect()
-        self.channels = self.getChannels()
-        self.run(config.options["threads"])
+	if "nickname" in config.options.keys():
+		self.nickname = config.options["nickname"]
+	else:
+		self.nickname = nickname
+	if "mins_interval" in config.options.keys():
+		self.mins_interval = config.options["mins_interval"]
+	else:
+		self.mins_interval = mins_interval
+	if "total_mins" in config.options.keys():
+		self.total_mins = config.options["total_mins"]
+	else:
+		self.total_mins = total_mins
+	if "channel" in config.options.keys():
+		self.channel = config.options["channel"]
+	else:
+		self.channel = channel
+	if "threads" in config.options.keys():
+		self.threads = config.options["threads"]
+	else:
+		self.threads = threads
+        # self.connect()
+        # self.channels = self.getChannels()
+	self.channels = []
+        self.run(self.threads, self.channel)
 
     def connect(self):
         print("Connecting to server... %s" % self.server)
@@ -74,11 +92,14 @@ class IRC(Crawler):
         return channels
         
     # def doCrawl(self, mins_interval, total_mins, crawler_config, channel):
-    def doCrawl(self, channel):
+    def doCrawl(self, channel=None):
         session_text = ""
         finished = False
         i = 0
-
+	self.connect()
+	if(channel == None):
+		self.channels = self.getChannels()
+		channel = self.channels[0]
         self.joinChannel(channel) 
         print("Starting to listen... %s" % channel)
         start_time_total = time.time()
@@ -106,19 +127,19 @@ class IRC(Crawler):
         return 
 
     # run each crawl in a thread
-    def run(self, num_threads):
-        for i in range(0, num_threads):
-            t = threading.Thread(target=self.doCrawl, args=(self.channels[i], ))
-            t.start()
+    def run(self, num_threads, channels):
+	for channel in range(0, len(channels)): 
+	    t = threading.Thread(target=self.doCrawl, args=(channel, ))
+	    t.start()
         return
         
 if __name__ == "__main__":
-    options = { 'nickname': "tnasty1",
-                'mins_interval': 1,
-                'total_mins': 1,    
-                'threads': 1
+    options = { 'mins_interval': "1",
+                'total_mins': "1",    
+                'threads': "1"
     }
 
     config = CrawlerConfig("irc.freenode.net", "IRC", "", "","", options)
 
     irc = IRC(config)
+    print("Done")
