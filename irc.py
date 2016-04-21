@@ -13,13 +13,17 @@ class IRC(Crawler):
     def __init__(self, config):
         self.irc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.config = config
-        self.server = config.get_location()
+        self.server = config.location
         self.nickname = config.options["nickname"]
         self.mins_interval = config.options["mins_interval"]
         self.total_mins = config.options["total_mins"]
-        self.connect()
-        self.channels = self.getChannels()
-        self.run(config.options["threads"])
+	self.channel = None
+	if "channel" in config.options.keys():
+		self.channel = config.options["channel"]
+        # self.connect()
+        # self.channels = self.getChannels()
+	self.channels = []
+        self.run(config.options["threads"], self.channel)
 
     def connect(self):
         print("Connecting to server... %s" % self.server)
@@ -74,11 +78,14 @@ class IRC(Crawler):
         return channels
         
     # def doCrawl(self, mins_interval, total_mins, crawler_config, channel):
-    def doCrawl(self, channel):
+    def doCrawl(self, channel=None):
         session_text = ""
         finished = False
         i = 0
-
+	self.connect()
+	if(channel == None):
+		self.channels = self.getChannls()
+		channel = self.channels[0]
         self.joinChannel(channel) 
         print("Starting to listen... %s" % channel)
         start_time_total = time.time()
@@ -106,33 +113,21 @@ class IRC(Crawler):
         return 
 
     # run each crawl in a thread
-    def run(self, num_threads):
-        for i in range(0, num_threads):
-            t = threading.Thread(target=self.doCrawl, args=(self.channels[i], ))
-            t.start()
+    def run(self, num_threads, channel):
+	if num_threads.isdigit():
+		for i in range(0, int(num_threads)):
+		    t = threading.Thread(target=self.doCrawl, args=(channel, ))
+		    t.start()
         return
         
 if __name__ == "__main__":
     options = { 'nickname': "tnasty1",
                 'mins_interval': 1,
-                'total_mins': 2,    
-                'threads': 20
+                'total_mins': 1,    
+                'threads': 1
     }
-    #CrawlerConfig = location(server), protocol(IRC), speed(unused), maxDepth(unused), name(unsued)
+
     config = CrawlerConfig("irc.freenode.net", "IRC", "", "","", options)
-    #channel = "#linux" # where does channel fit into CrawlerConfig?
-    #source = (config.get_location(), channel)
-    #nickname = "tnasty1"
-    #mins_interval = config.get_speed() # how often to get data
-    #total_mins = config.get_maxDepth() # how long to run (total time)
 
     irc = IRC(config)
-    #irc.connect()
-    #channels = irc.getChannels()
-    #print(channels)
-    #print(len(channels))
-
-
-    # results_list = listen(irc, mins_interval, total_mins, config, cha)
-
-
+    print("Done")
