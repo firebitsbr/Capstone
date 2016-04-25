@@ -1,21 +1,20 @@
 import subprocess
 import ssl
 import socket
+#import SocketServer
 import socketserver
 import jsonpickle
 from es_result import es_result
 
 class parser(socketserver.BaseRequestHandler):
-    cert_file="<insert pub cert file>"
-    key_file="<insert priv cert file>"
-
-    def __init__(self,search):
-        self.search = search
-        es_result.init()
+    cert_file="/Users/emead/Documents/git/capstone/rsa.crt"
+    key_file="/Users/emead/Documents/git/capstone/rsa.key"
+    search = None
 
     def setup(self):
         self.context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
         self.context.load_cert_chain(certfile=self.cert_file, keyfile=self.key_file)
+        es_result.init();
 
     def handle(self):
         print("New connection from " + str(self.client_address))
@@ -34,7 +33,7 @@ class parser(socketserver.BaseRequestHandler):
     def decode(self,data):
         try:
             resp=jsonpickle.decode(data)
-            print("Response decoded to: " + type(resp).__name__, end="")
+            print("Response decoded to: " + type(resp).__name__)
             return resp
         except:
             print("Failed to decode... probably still receiving. Data:\n" + str(data))

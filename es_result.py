@@ -3,11 +3,12 @@ from elasticsearch_dsl import DocType, String, Date, Integer
 from elasticsearch_dsl.connections import connections
 from elasticsearch import Elasticsearch, RequestsHttpConnection
 
+
+    #http_auth=('user', 'secret'),
 es = Elasticsearch(
-    ['HOST'],
-    http_auth=('user', 'secret'),
-    port=443,
-    use_ssl=True,
+    ['redteam.isamotherfucking.ninja'],
+    port=9200,
+    use_ssl=False,
     verify_certs=True,
     ca_certs='/path/to/cacert.pem',
     client_cert='/path/to/client_cert.pem',
