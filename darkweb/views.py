@@ -8,7 +8,8 @@ views = Blueprint("views", __name__)
 
 @views.route("/", methods=["GET"])
 def home():
-	return render_template("index.html")
+	result = readSearchFile()
+	return render_template("index.html", result=result)
 
 @views.route("/", methods=["POST"])
 def createCrawlerConfig():
@@ -41,6 +42,7 @@ def createCrawlerConfig():
 		search_params = [("Search Name", searchName), ("Protocol", protocol), ("Speed", speed), ("Max Depth", maxDepth), ("Location", location)]
 		for label, val in options.iteritems():
 			search_params.append((label, val))
+		result = readSearchFile()
 	return render_template("index.html", msg=msg, search_params=search_params, result=result)
 
 # read from /tmp/searches.txt and return list of lines
