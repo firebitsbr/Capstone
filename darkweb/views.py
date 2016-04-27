@@ -49,7 +49,7 @@ def createCrawlerConfig():
 def readSearchFile():
 	result = []
 	with open("/tmp/searches.txt", "r") as f:
-		while(line = f.readline()):
+		for line in f:
 			result.append(line)
 	return result
 
