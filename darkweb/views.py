@@ -23,6 +23,7 @@ def createCrawlerConfig():
 
 	msg = "Search \"" + searchName + "\" started."
 	crawler = None
+	search_params = None
 	if searchName == "":
 		msg = "Search failed. Search must be given a name."
 	elif not speed.isdigit():
@@ -37,8 +38,10 @@ def createCrawlerConfig():
 		msg = "Search failed invalid protocol.\nMust be TOR, IRC, or web"
 	if(crawler):
 		run_crawl(crawler)
-	return render_template("index.html", msg=msg)
+		search_params = [("Search Name", searchName), ("Protocol", protocol), ("Speed", speed), ("Max Depth", maxDepth), ("Location", location)]
+	return render_template("index.html", msg=msg, search_params=search_params)
 
+def makeParamList(config)
 # run the specified cralwer 
 # call do crawl in new thread 
 def run_crawl(crawler, args=None):
