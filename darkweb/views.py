@@ -65,7 +65,7 @@ def writeSearchFile(searchName):
 def run_crawl(crawler, args=None):
 	t = threading.Thread(target=crawler.doCrawl, args=(args, ))
 	t.start()
-	writeStartTime(crawler.config.name)
+	writeSearchFile(crawler.config.name)
 	return 
 
 # format options string from form and create options dict for crawlerconfig
