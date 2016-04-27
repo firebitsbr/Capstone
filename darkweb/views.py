@@ -56,8 +56,8 @@ def readSearchFile():
 
 # writes to file in /tmp the datetime a search was started
 def writeSearchFile(searchName):
-	with open("/tmp/searches.txt", "w") as f:
-		out_string = searchName + " started at: " + datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+	with open("/tmp/searches.txt", "a") as f:
+		out_string = "\"" + searchName + "\": " + datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S') + "\n"
 		f.write(out_string)
 	return 
 	
