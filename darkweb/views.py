@@ -41,14 +41,29 @@ def createCrawlerConfig():
 		search_params = [("Search Name", searchName), ("Protocol", protocol), ("Speed", speed), ("Max Depth", maxDepth), ("Location", location)]
 		for label, val in options.iteritems():
 			search_params.append((label, val))
-	return render_template("index.html", msg=msg, search_params=search_params)
+	return render_template("index.html", msg=msg, search_params=search_params, result=result)
 
+# read from /tmp/searches.txt and return list of lines
+def readSearchFile():
+	result = []
+	with open("/tmp/searches.txt", "r") as f:
+		while(line = f.readline()):
+			result.append(line)
+	return result
 
+# writes to file in /tmp the datetime a search was started
+def writeSearchFile(searchName):
+	with open("/tmp/searches.txt", "w") as f:
+		out_string = searchName + " started at: " + datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+		f.write(out_string)
+	return 
+	
 # run the specified cralwer 
 # call do crawl in new thread 
 def run_crawl(crawler, args=None):
 	t = threading.Thread(target=crawler.doCrawl, args=(args, ))
 	t.start()
+	writeStartTime(crawler.config.name)
 	return 
 
 # format options string from form and create options dict for crawlerconfig
