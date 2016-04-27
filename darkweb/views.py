@@ -43,7 +43,7 @@ def createCrawlerConfig():
 		search_params = [("Search Name", searchName), ("Protocol", protocol), ("Speed", speed), ("Max Depth", maxDepth), ("Location", location)]
 		for label, val in options.iteritems():
 			search_params.append((label, val))
-		result = readSearchFile()
+	result = readSearchFile()
 	return render_template("index.html", msg=msg, search_params=search_params, result=result)
 
 # read from /tmp/searches.txt and return list of lines
