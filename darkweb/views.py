@@ -39,7 +39,7 @@ def createCrawlerConfig():
 	if(crawler):
 		run_crawl(crawler)
 		search_params = [("Search Name", searchName), ("Protocol", protocol), ("Speed", speed), ("Max Depth", maxDepth), ("Location", location)]
-		for label, val options.iteritems():
+		for label, val in options.iteritems():
 			search_params.append((label, val))
 	return render_template("index.html", msg=msg, search_params=search_params)
 
