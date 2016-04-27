@@ -40,6 +40,11 @@
 				<p> {{ param_name }}: {{ param_val }}</p>
 			{% endfor %}
 			{% endif %}
+			{% if result %}
+			{% for search in result %}
+				<p> {{ search }}</p>
+			{% endfor %}
+			{% endif %}
 				
 			
 
