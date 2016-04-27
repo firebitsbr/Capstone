@@ -3,6 +3,7 @@ from darkweb.modules.crawlerconfig import CrawlerConfig
 from darkweb.modules.irc import IRC
 from darkweb.modules.WebCrawler import WebCrawler
 import threading 
+import datetime
 
 views = Blueprint("views", __name__)
 
@@ -56,7 +57,7 @@ def readSearchFile():
 # writes to file in /tmp the datetime a search was started
 def writeSearchFile(searchName):
 	with open("/tmp/searches.txt", "w") as f:
-		out_string = searchName + " started at: " + datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+		out_string = searchName + " started at: " + datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 		f.write(out_string)
 	return 
 	
