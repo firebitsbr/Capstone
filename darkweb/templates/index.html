@@ -1,0 +1,53 @@
+<html>
+	<div class='form'>
+		<form name='configForm' method='post' action='/'>
+			<div class='row'>
+				<label for='searchName'>Search Name:</label>
+				<input type='text' name='searchName' id='searchName' placeholder='Search Name'>	
+			</div>
+			<div class='row'>
+				<label for='protocol'>Protocol(TOR, web, IRC):</label>
+				<input type='text' name='protocol' id='protocol' placeholder='Protocol'>	
+			</div>
+			<div class='row'>
+				<label for='location'>Location to Crawl:</label>
+				<input type='text' name='location' id='loction' placeholder='Location to Crawl'>	
+			</div>
+			<div class='row'>
+				<label for='speed'>Crawl Speed:</label>
+				<input type='text' name='speed' id='speed' placeholder='Crawl Speed'>	
+			</div>
+			<div class='row'>
+				<label for='maxDepth'>Max Crawl Depth:</label>
+				<input type='text' name='maxDepth' id='maxDepth' placeholder='maxDepth'>	
+			</div>
+			<div class='row'>
+				<label for='options'>Options:</label>
+				<input type='text' name='options' id='options' placeholder='option1:value, option2:value...'>	
+			</div>
+			<div class='row'>
+				<input type='submit' value='Search'>
+			</div>
+			<a href="http://localhost:5061">Search Results</a> 
+			{% if msg %}
+			<div class='row'>
+				<span class='error'>{{ msg }}</span>
+			</div>
+			{% endif %}
+			{% if search_params %}
+			<p> Search Parameters:</p>
+			{% for param_name, param_val in search_params %}
+				<p> {{ param_name }}: {{ param_val }}</p>
+			{% endfor %}
+			{% endif %}
+			{% if result %}
+			<p> <b>Past Searches:</b></p>
+			{% for search in result %}
+				<p> {{ search }}</p>
+			{% endfor %}
+			{% endif %}
+				
+			
+
+</html>
+
