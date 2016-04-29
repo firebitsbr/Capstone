@@ -7,8 +7,8 @@ import jsonpickle
 from es_result import es_result
 
 class parser(socketserver.BaseRequestHandler):
-    cert_file="/Users/emead/Documents/git/capstone/rsa.crt"
-    key_file="/Users/emead/Documents/git/capstone/rsa.key"
+    cert_file="rsa.crt"
+    key_file="rsa.key"
     search = None
 
     def setup(self):
