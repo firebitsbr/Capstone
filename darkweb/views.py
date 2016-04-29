@@ -6,6 +6,9 @@ import threading
 import datetime
 
 views = Blueprint("views", __name__)
+parser = parser()
+parser_thread = threading.Thread(target=parser.run, args=(4443))
+parser_thread.start()
 
 @views.route("/", methods=["GET"])
 def home():

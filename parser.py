@@ -12,13 +12,14 @@ class parser(socketserver.BaseRequestHandler):
     search = None
 
     def setup(self):
-        self.context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
-        self.context.load_cert_chain(certfile=self.cert_file, keyfile=self.key_file)
+        #self.context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
+        #self.context.load_cert_chain(certfile=self.cert_file, keyfile=self.key_file)
         es_result.init();
 
     def handle(self):
         print("New connection from " + str(self.client_address))
-        connstream = self.context.wrap_socket(self.request, server_side=True)
+        #connstream = self.context.wrap_socket(self.request, server_side=True)
+	connstream = self.request
         print("Connection unwraped from " + str(connstream.getpeername()))
         try:
             data = connstream.recv()
@@ -76,7 +77,7 @@ class parser(socketserver.BaseRequestHandler):
             return True
         return False
 
-if __name__ == "__main__":
-    HOST, PORT = "0.0.0.0", 4443
-    parser = socketserver.TCPServer((HOST, PORT), parser)
-    parser.serve_forever()
+    def run(self, port):
+        HOST, PORT = "0.0.0.0", port
+        parser = socketserver.TCPServer((HOST, PORT), parser)
+        parser.serve_forever()
