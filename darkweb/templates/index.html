@@ -6,20 +6,24 @@
 				<input type='text' name='searchName' id='searchName' placeholder='Search Name'>	
 			</div>
 			<div class='row'>
-				<label for='protocol'>Protocol(TOR, web, IRC):</label>
-				<input type='text' name='protocol' id='protocol' placeholder='Protocol'>	
-			</div>
+				<label for='protocol'>Protocol</label>
+	<select onchange="change(this)">
+		<option value="tor">TOR</option>
+		<option value="web">WEB</option>
+		<option value="irc">IRC</option>
+	</select>		
+	</div>
 			<div class='row'>
-				<label for='location'>Location to Crawl:</label>
-				<input type='text' name='location' id='loction' placeholder='Location to Crawl'>	
+				<label for='location'>Location:</label>
+				<input type='text' name='location' id='loction' placeholder='URL or IRC channel'>	
 			</div>
 			<div class='row'>
 				<label for='speed'>Crawl Speed:</label>
-				<input type='text' name='speed' id='speed' placeholder='Crawl Speed'>	
+				<input type='text' name='speed' id='speed' placeholder='# if seconds'>	
 			</div>
 			<div class='row'>
 				<label for='maxDepth'>Max Crawl Depth:</label>
-				<input type='text' name='maxDepth' id='maxDepth' placeholder='maxDepth'>	
+				<input type='text' name='maxDepth' id='maxDepth' placeholder='100 links'>	
 			</div>
 			<div class='row'>
 				<label for='options'>Options:</label>
@@ -28,6 +32,24 @@
 			<div class='row'>
 				<input type='submit' value='Search'>
 			</div>
+<div id="tor"><h1>TOR Options</h1>robots:True or False (defualt=True)</div>
+<div id="web" style="display:none;"><h1>WEB Options</h1>robots:True or False (default=True)</div>
+<div id="irc" style="display:none"><h1>IRC Options</h1>mins_interval: # mins (default=60) <br>
+total_mins: # mins (defualt=10) <br>
+channels: channel1,channel2,channel3<br>
+nickname: nickname<br>
+if option isn't given, default value is used
+</div>
+<script>
+	var areas=["tor","web","irc"];
+	function change(dom){
+	for(i=0,l=areas.length;i<l;i++){
+	document.getElementById(areas[i]).style.display="none";
+}
+	
+	document.getElementById(dom.value).style.display="";
+}
+</script>
 			<a href="http://localhost:5061">Search Results</a> 
 			{% if msg %}
 			<div class='row'>
