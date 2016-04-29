@@ -10,6 +10,24 @@ parser = parser()
 parser_thread = threading.Thread(target=parser.run, args=(4443))
 parser_thread.start()
 
+@views.route("/addParams", methods=["POST"])
+def addParams():
+	# add new param	
+	if request.form['addST']:
+		# add new search term
+	if request.form['addRE']:
+		# add new regex
+	result = readSearchFile()
+	msg = "Successfull added search parameters"
+	return render_template("index.html", result=result)
+
+@views.route("/clearParams", methods=["POST"])
+def clearParams():
+	# clear all params 
+	result = readSearchFile()
+	msg = "Successfull cleared search parameters"
+	return render_template("index.html", result=result)
+ 
 @views.route("/", methods=["GET"])
 def home():
 	result = readSearchFile()
@@ -31,13 +49,15 @@ def createCrawlerConfig():
 	search_params = None
 	if searchName == "":
 		msg = "Search failed. Search must be given a name."
-	elif not speed.isdigit():
-		msg = "Search falied. Speed much be an integer."
-	elif not maxDepth.isdigit():
-		msg = "Search failed. Max Crawl Depth must be an integer."
+	elif location == "":
+		msg = "Search failed. Must give a search location."
 	elif protocol == "irc":
 		crawler = IRC(config)
 	elif protocol == "tor" or protocol == "web":
+		if not speed.isdigit():
+			msg = "Search falied. Speed much be an integer."
+		elif not maxDepth.isdigit():
+			msg = "Search failed. Max Crawl Depth must be an integer."
 		crawler = WebCrawler(config) 
 	else:
 		msg = "Search failed invalid protocol.\nMust be TOR, IRC, or web"
@@ -49,12 +69,16 @@ def createCrawlerConfig():
 	result = readSearchFile()
 	return render_template("index.html", msg=msg, search_params=search_params, result=result)
 
-# read from /tmp/searches.txt and return list of lines
+# read from /tmp/searches.txt and return list of 5 lines
 def readSearchFile():
 	result = []
+	i = 0
 	with open("/tmp/searches.txt", "r") as f:
 		for line in f:
+			if(i >= 5):
+				break
 			result.append(line)
+			i += 1
 	return result
 
 # writes to file in /tmp the datetime a search was started

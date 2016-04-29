@@ -32,6 +32,23 @@
 			<div class='row'>
 				<input type='submit' value='Search'>
 			</div>
+		<form name='paramForm' method='post' action='/addParam'>
+			<div class='row'>
+				<label for='addST'>Add Search Term:</label>
+				<input type='text' name='addST' id='addST' placeholder='add new search term'>
+			</div>
+			<div class='row'>
+				<label for='addRE'>Add Regex:</label>
+				<input type='text' name='addRE' id='addRE' placeholder='add new regular expression'>
+			</div>
+			<div class='row'>
+				<input type='submit' value='Add Keywords'>
+			</div>
+		<form name='paramClear' method='post' action='/clearParams'>
+			<div class='row'>
+				<input type='submit' value='Clear Search Keywords' >
+			</div>
+			
 <div id="tor"><h1>TOR Options</h1>robots:True or False (defualt=True)</div>
 <div id="web" style="display:none;"><h1>WEB Options</h1>robots:True or False (default=True)</div>
 <div id="irc" style="display:none"><h1>IRC Options</h1>mins_interval: # mins (default=60) <br>
