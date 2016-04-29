@@ -7,6 +7,7 @@ import robotparser
 import datetime
 import time
 import re
+from urlparse import urljoin
 
 class WebCrawler(Crawler):
 
@@ -61,11 +62,11 @@ class WebCrawler(Crawler):
 		fqlst=[]						# fully qualified list
 		for n in lst:
 			if not n.startswith("http"):
-				fqlst.append(current_node.get_url() + n)
+				fqlst.append(urljoin(current_node.get_url(), n))
 			else:
 				fqlst.append(n)
 		
-
+		print fqlst
 		option = "none"
 		if (self.config.protocol == "tor"):
 			tor = manageTor.open()
