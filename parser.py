@@ -77,7 +77,7 @@ class parser(socketserver.BaseRequestHandler):
             return True
         return False
 
-if __name__ == "__main__":
-    HOST, PORT = "0.0.0.0", 4443
-    parser = socketserver.TCPServer((HOST, PORT), parser)
-    parser.serve_forever()
+    def run(self, port):
+        HOST, PORT = "0.0.0.0", port
+        parser = socketserver.TCPServer((HOST, PORT), parser)
+        parser.serve_forever()
