@@ -10,10 +10,11 @@ from result import *
 from crawlerconfig import * 
 
 class IRC(Crawler):
-    def __init__(self, config, channels=[], nickname="aaabbbcccddd", mins_interval="10", total_mins="60", threads="1"):
+    def __init__(self, config, nickname="aaabbbcccddd", mins_interval="10", total_mins="60"):
         self.irc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.config = config
         self.server = config.location
+	self.channels = []
 	if "nickname" in config.options.keys():
 		self.nickname = config.options["nickname"]
 	else:
@@ -27,19 +28,16 @@ class IRC(Crawler):
 	else:
 		self.total_mins = total_mins
 	if "channels" in config.options.keys():
-		for channel in config.options.["channels"].split("'"):
+		for channel in config.options["channels"].split(","):
 			self.channels.append(channel)
 		# self.channel = config.options["channel"]
 	else:
 		self.channel = channel
-	if "threads" in config.options.keys():
-		self.threads = config.options["threads"]
-	else:
-		self.threads = threads
+
         # self.connect()
         # self.channels = self.getChannels()
 	# self.channels = []
-        self.run(self.threads, self.channels)
+        self.run(self.channels)
 
     def connect(self):
         print("Connecting to server... %s" % self.server)
@@ -111,7 +109,7 @@ class IRC(Crawler):
             #print("cur_time: %d total_time: %d"  % ((cur_time - start_time), (cur_time - start_time_total)))
             text = self.get_text()
             if text != "": 
-                #print(session_text)
+                print(session_text)
                 session_text += (text+"\n")
             cur_time = time.time()
             if((cur_time - start_time) >= self.mins_interval*60):
@@ -129,18 +127,19 @@ class IRC(Crawler):
         return 
 
     # run each crawl in a thread
-    def run(self, num_threads, channel):
-	if num_threads.isdigit():
-		for i in range(0, int(num_threads)):
-		    t = threading.Thread(target=self.doCrawl, args=(channel, ))
-		    t.start()
+    def run(self, channels):
+	print(channels)
+	for i in range(0, len(channels)):
+	    print("running %s" % channels[i])
+	    t = threading.Thread(target=self.doCrawl, args=(channels[i], ))
+	    t.start()
         return
         
 if __name__ == "__main__":
     options = { 'mins_interval': "1",
                 'total_mins': "1",    
-                'threads': "1",
-                'channels': "linux, security"
+                # 'channels': "security,linux,information-node"
+                'channels': "linux"
     }
 
     config = CrawlerConfig("irc.freenode.net", "IRC", "", "","", options)
