@@ -10,7 +10,7 @@ from result import *
 from crawlerconfig import * 
 
 class IRC(Crawler):
-    def __init__(self, config, channel=None, nickname="aaabbbcccddd", mins_interval="10", total_mins="60", threads="1"):
+    def __init__(self, config, channels=[], nickname="aaabbbcccddd", mins_interval="10", total_mins="60", threads="1"):
         self.irc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.config = config
         self.server = config.location
@@ -26,8 +26,10 @@ class IRC(Crawler):
 		self.total_mins = config.options["total_mins"]
 	else:
 		self.total_mins = total_mins
-	if "channel" in config.options.keys():
-		self.channel = config.options["channel"]
+	if "channels" in config.options.keys():
+		for channel in config.options.["channels"].split("'"):
+			self.channels.append(channel)
+		# self.channel = config.options["channel"]
 	else:
 		self.channel = channel
 	if "threads" in config.options.keys():
@@ -36,8 +38,8 @@ class IRC(Crawler):
 		self.threads = threads
         # self.connect()
         # self.channels = self.getChannels()
-	self.channels = []
-        self.run(self.threads, self.channel)
+	# self.channels = []
+        self.run(self.threads, self.channels)
 
     def connect(self):
         print("Connecting to server... %s" % self.server)
@@ -137,7 +139,8 @@ class IRC(Crawler):
 if __name__ == "__main__":
     options = { 'mins_interval': "1",
                 'total_mins': "1",    
-                'threads': "1"
+                'threads': "1",
+                'channels': "linux, security"
     }
 
     config = CrawlerConfig("irc.freenode.net", "IRC", "", "","", options)
