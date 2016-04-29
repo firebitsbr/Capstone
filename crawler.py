@@ -147,8 +147,8 @@ class Crawler:
         # @todo test when there is a destination to send data to
         # @todo later goal implement ssl?
         conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        hostname = "parser"
-        port = 443
+        hostname = "127.0.0.1"
+        port = 4443
         try:
             ser = jsonpickle.encode(result)
         except:
