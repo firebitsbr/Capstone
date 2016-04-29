@@ -144,10 +144,10 @@ class Crawler:
 
     def send_result(self, result):
         #send results to parser
-        # @todo test when there is a destination to send data to 
-        # @todo later goal implement ssl?   
+        # @todo test when there is a destination to send data to
+        # @todo later goal implement ssl?
         conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        hostname = "parser" 
+        hostname = "parser"
         port = 443
         try:
             ser = jsonpickle.encode(result)
@@ -161,4 +161,5 @@ class Crawler:
             print("Sent all data.")
         except Exception as e:
             print("Error sending data/connecting. Error: " + str(e))
-            return 
+            return
+        conn.close()

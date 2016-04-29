@@ -63,3 +63,5 @@ target/
 
 *.pem
 *.cert
+*.key
+*.crt
