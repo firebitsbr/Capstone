@@ -113,5 +113,5 @@ class WebCrawler(Crawler):
 
 				current_node.set_children(weblist)
 		timeEnd=datetime.datetime.now()
-		results = [self.config, timeStart, timeEnd, current_node.get_url(), current_node.get_parent(), data]
+		results = Result(self.config, timeStart, timeEnd, current_node.get_url(), current_node.get_parent(), data)
 		return results
