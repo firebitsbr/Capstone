@@ -1,92 +1,230 @@
 <html>
-<div class='form'>
-    <form name='configForm' method='post' action='/'>
-        <div class='row'>
-            <label for='searchName'>Search Name:</label>
-            <input type='text' name='searchName' id='searchName' placeholder='Search Name'>	
-        </div>
-        <div class='row'>
-            <label>Protocol</label>
-            <select for='protocol' name='protocol' id='protocol' onchange="change(this)">
-                <option value="tor">TOR</option>
-                <option value="web">WEB</option>
-                <option value="irc">IRC</option>
-            </select>		
-        </div>
-        <div class='row'>
-            <label for='location'>Location:</label>
-            <input type='text' name='location' id='location' placeholder='URL or IRC channel'>	
-        </div>
-        <div class='row'>
-            <label for='speed'>Crawl Speed:</label>
-            <input type='text' name='speed' id='speed' placeholder='# if seconds'>	
-        </div>
-        <div class='row'>
-            <label for='maxDepth'>Max Crawl Depth:</label>
-            <input type='text' name='maxDepth' id='maxDepth' placeholder='100 links'>	
-        </div>
-        <div class='row'>
-            <label for='options'>Options:</label>
-            <input type='text' name='options' id='options' placeholder='option1:value, option2:value...'>	
-        </div>
-        <div class='row'>
-            <input type='submit' value='Search'>
-        </div>
-        <form name='paramForm' method='post' action='/addParam'>
-            <div class='row'>
-                <label for='addST'>Add Search Term:</label>
-                <input type='text' name='addST' id='addST' placeholder='add new search term'>
-            </div>
-            <div class='row'>
-                <label for='addRE'>Add Regex:</label>
-                <input type='text' name='addRE' id='addRE' placeholder='add new regular expression'>
-            </div>
-            <div class='row'>
-                <input type='submit' value='Add Keywords'>
-            </div>
-            <form name='paramClear' method='post' action='/clearParams'>
-                <div class='row'>
-                    <input type='submit' value='Clear Search Keywords' >
-                </div>
+<head>
 
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Dark Web Recon</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/grayscale.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+    
+<!-- Navigation -->
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">
+                    <i class="fa fa-play-circle"></i>  <span class="light">Dark Web Recon</span> 
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#SearchC">Search</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#SubmittedSearch">Submitted Search</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#Kibana">Kibana</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+    
+    <!-- About Section -->
+    <section id="about" class="container content-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2>About Dark Web Recon</h2>
+                <p>Dark Web Recon is an easy to use tool that uses a web interface to configure search modules to search the dark web for various keywords. It then sends the results to a parser to sift through the data. From there, it sends the information in realtime to the ELK stack for further visualization and analyzation.</p>
+            </div>
+        </div>
+    </section>
+    
+<section id="SearchC" class="form-section text-center">
+    
+    <div class="container">
+        <div class="col-md-8 col-md-offset-2">
+            <h2>Search Configuration</h2>
+            <div class="form">
+                <form name="configForm" method="post" action="/">
+                    <div class="form-group">
+                        <label for="searchName">Search Name:</label>
+                        <input type="text" name="searchName" id="searchName" placeholder="Search Name">
+                    </div>
+                    <div class="form-group">
+                        <select for='protocol' name='protocol' id='protocol' onchange="change(this)">
+                            <option value="tor">TOR</option>
+                            <option value="web">WEB</option>
+                            <option value="irc">IRC</option>
+                        </select>		
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Location to Crawl:</label>
+                        <input type="text" name="location" id="location" placeholder="URL or IRC channel">
+                    </div>
+                    <div class="form-group">
+                        <label for="speed">Crawl Speed:</label>
+                        <input type="text" name="speed" id="speed" placeholder="# of seconds">
+                    </div>
+                    <div class="form-group">
+                        <label for="maxDepth">Max Crawl Depth:</label>
+                        <input type="text" name="maxDepth" id="maxDepth" placeholder="100 links">
+                    </div>
+                    <div class="form-group">
+                        <label for="options">Options:</label>
+                        <input type="text" name="options" id="options" placeholder="option1:value, option2:value...">
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Search">
+                    </div>
+                    
+                    <!-- New stuff - not tested -->
+                    
+                    <form name='paramForm' method='post' action='/addParam'>
+                        <div class='row'>
+                            <label for='addST'>Add Search Term:</label>
+                            <input type='text' name='addST' id='addST' placeholder='add new search term'>
+                        </div>
+                        <div class='row'>
+                            <label for='addRE'>Add Regex:</label>
+                            <input type='text' name='addRE' id='addRE' placeholder='add new regular expression'>
+                        </div>
+                        <div class='row'>
+                            <input type='submit' value='Add Keywords'>
+                        </div>
+                    </form>
+                <form name='paramClear' method='post' action='/clearParams'>
+                    <div class='row'>
+                        <input type='submit' value='Clear Search Keywords' >
+                    </div>
+                </form>
+                
+                    
                 <div id="tor"><h1>TOR Options</h1>robots:True or False (defualt=True)</div>
                 <div id="web" style="display:none;"><h1>WEB Options</h1>robots:True or False (default=True)</div>
                 <div id="irc" style="display:none"><h1>IRC Options</h1>mins_interval: # mins (default=60) <br>
-                    total_mins: # mins (defualt=10) <br>
-                    channels: channel1,channel2,channel3<br>
-                    nickname: nickname<br>
-                    if option isn't given, default value is used
+                total_mins: # mins (defualt=10) <br>
+                channels: channel1,channel2,channel3<br>
+                nickname: nickname<br>
+                if option isn't given, default value is used
                 </div>
-                <script>
-var areas=["tor","web","irc"];
-function change(dom){
-    for(i=0,l=areas.length;i<l;i++){
-        document.getElementById(areas[i]).style.display="none";
-    }
+                    
+                </form>
+                
+                    <script>
+                        var areas=["tor","web","irc"];
+                        function change(dom){
+                        for(i=0,l=areas.length;i<l;i++){
+                        document.getElementById(areas[i]).style.display="none";
+                    }
 
-    document.getElementById(dom.value).style.display="";
-}
-                </script>
-                <a href="http://localhost:5061">Search Results</a> 
-                {% if msg %}
-                <div class='row'>
-                    <span class='error'>{{ msg }}</span>
-                </div>
-                {% endif %}
-                {% if search_params %}
-                <p> Search Parameters:</p>
-                {% for param_name, param_val in search_params %}
-                <p> {{ param_name }}: {{ param_val }}</p>
-                {% endfor %}
-                {% endif %}
-                {% if result %}
-                <p> <b>Past Searches:</b></p>
-                {% for search in result %}
-                <p> {{ search }}</p>
-                {% endfor %}
-                {% endif %}
+                        document.getElementById(dom.value).style.display="";
+                    }
+                    </script>
+                
+                <!-- New script above ^^ -->
+                
+            </div>
+        </div>
+    </div>
+</section>
+    
+    <!-- Submitted Results Section -->
+<section id="SubmittedSearch" class="content-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2>Submitted Search</h2>
+    
+			<a href="http://localhost:5061">Search Results</a>
+			{% if msg %}
+			<div class='row'>
+				<span class='error'>{{ msg }}</span>
+			</div>
+			{% endif %}
+			{% if search_params %}
+			<p> Search Parameters:</p>
+			{% for param_name, param_val in search_params %}
+				<p> {{ param_name }}: {{ param_val }}</p>
+			{% endfor %}
+			{% endif %}
+			{% if result %}
+			<p> <b>Past Searches:</b></p>
+			{% for search in result %}
+				<p> {{ search }}</p>
+			{% endfor %}
+			{% endif %}
+            </div>
+        </div>
+    </section>
 
+<section id="Kibana" class="text-center">   
+    
+    <div class="embed-responsive-item">
+        <h1>Kibana Visualization</h1>
+        <iframe class="embed-responsive-item" src="http://www.cnn.com" width="1000" height="600"></iframe>
+    </div>
 
+    
+</section>
 
-                </html>
+    <!-- Footer -->
+<footer>
+    <div class="container text-center">
+        <p>Frontier | Dark Web Recon</p>
+    </div>
+</footer>
 
+<!-- jQuery -->
+<script src="js/jquery.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.min.js"></script>
+
+<!-- Plugin JavaScript -->
+<script src="js/jquery.easing.min.js"></script>
+
+<!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ -->
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="js/grayscale.js"></script>
+    
+    
+</body>
+</html>
