@@ -149,6 +149,9 @@ class Crawler:
         conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         hostname = "127.0.0.1"
         port = 4443
+        print("Result type: " + str(type(result).__name__))
+        if result != None and type(result).__name__ != "Result":
+            raise Exception("Invalid Parameter: Result not Result object.")
         try:
             ser = jsonpickle.encode(result)
         except:
@@ -157,7 +160,9 @@ class Crawler:
 
         try:
             conn.connect((hostname, port))
-            conn.sendall(ser.encode('utf-8'))
+            data = ser.encode('utf-8')
+            #print("Sending data:\n"+str(data))
+            conn.sendall(data)
             print("Sent all data.")
         except Exception as e:
             print("Error sending data/connecting. Error: " + str(e))

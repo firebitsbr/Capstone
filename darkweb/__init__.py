@@ -1,13 +1,15 @@
-from flask import Flask 
+from flask import Flask
 
-def createApp():
-	app = Flask(__name__)
-	with app.app_context():
-		from darkweb.views import views
-		app.register_blueprint(views)
+app = Flask(__name__)
+from darkweb.views import main
+#def createApp():
+#	app = Flask(__name__)
+#	with app.app_context():
+#		from darkweb.views import views
+#		app.register_blueprint(views)
+#
+#	return app
 
-	return app 
-
-if __name__ == "__main__":
-	app = createApp()
-	app.run(host="0.0.0.0", port=8080)
+#if __name__ == "__main__":
+#	app = createApp()
+#	app.run(host="0.0.0.0", port=8080)

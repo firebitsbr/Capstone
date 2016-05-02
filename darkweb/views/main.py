@@ -1,4 +1,5 @@
-from flask import Flask, render_template, Blueprint, request
+#from flask import Flask, render_template, Blueprint, request, g
+from flask import Flask, render_template, request, g
 from darkweb.modules.base.crawlerconfig import CrawlerConfig
 from darkweb.modules.irc.irc import IRC
 from darkweb.modules.web.WebCrawler import WebCrawler
@@ -6,17 +7,20 @@ from darkweb.modules.parser.parser import parser
 import SocketServer
 import threading
 import datetime
+import sys
 from threading import Thread
+from darkweb import app
+#views = Blueprint("views", __name__)
 
-views = Blueprint("views", __name__)
-HOST, PORT = "0.0.0.0", 4443
-sserver = SocketServer.ThreadingTCPServer((HOST, PORT), parser)
-Thread(target=sserver.serve_forever).start()
-#parser = parser((HOST, PORT), parser)
-#parser_thread = threading.Thread(target=parser.run, args=(4444))
-#parser_thread.start()
+@app.before_first_request
+def before_first():
+    print("views.py - init start")
+    HOST, PORT = "0.0.0.0", 4443
+    sserver = SocketServer.ThreadingTCPServer((HOST, PORT), parser)
+    Thread(target=sserver.serve_forever).start()
+    print("views.py - init end")
 
-@views.route("/addParams", methods=["POST"])
+@app.route("/addParams", methods=["POST"])
 def addParams():
     # add new param
     if request.form['addST']:
@@ -29,22 +33,25 @@ def addParams():
     msg = "Successfull added search parameters"
     return render_template("index.html", result=result)
 
-@views.route("/clearParams", methods=["POST"])
+@app.route("/clearParams", methods=["POST"])
 def clearParams():
     # clear all params
     result = readSearchFile()
     msg = "Successfull cleared search parameters"
     return render_template("index.html", result=result)
 
-@views.route("/", methods=["GET"])
+@app.route("/", methods=["GET"])
 def home():
     result = readSearchFile()
     return render_template("index.html", result=result)
 
-@views.route("/", methods=["POST"])
+@app.route("/", methods=["POST"])
 def createCrawlerConfig():
+    print(str(request.form))
+    print("Post recieved.")
     searchName = str(request.form['searchName'])
     protocol = str(request.form['protocol']).lower()
+    print("Post parameters parsed.")
     speed = str(request.form['speed'])
     maxDepth = str(request.form['maxDepth'])
     location  = str(request.form['location'])
@@ -99,7 +106,8 @@ def writeSearchFile(searchName):
 # run the specified cralwer
 # call do crawl in new thread
 def run_crawl(crawler, args=None):
-    t = threading.Thread(target=crawler.doCrawl, args=(args, ))
+    #t = threading.Thread(target=crawler.doCrawl, args=(args, ))
+    t = threading.Thread(target=crawler.doCrawl)
     t.start()
     writeSearchFile(crawler.config.name)
     return

@@ -4,3 +4,4 @@ jsonpickle
 simplejson
 pysocks
 stem
+beautifulsoup4

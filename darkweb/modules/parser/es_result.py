@@ -5,36 +5,36 @@ from elasticsearch import Elasticsearch, RequestsHttpConnection
 
 
     #http_auth=('user', 'secret'),
+    #verify_certs=True,
+    #ca_certs='/path/to/cacert.pem',
+    #client_cert='/path/to/client_cert.pem',
+    #client_key='/path/to/client_key.pem',
 es = Elasticsearch(
-    ['redteam.isamotherfucking.ninja'],
+    ['localhost'],
     port=9200,
-    use_ssl=False,
-    verify_certs=True,
-    ca_certs='/path/to/cacert.pem',
-    client_cert='/path/to/client_cert.pem',
-    client_key='/path/to/client_key.pem',
+    use_ssl=False
 )
 connections.add_connection('default', es)
 
 class es_result(DocType):
-    source = String(analyzer='snowball')
-    referrer = String(analyzer='snowball')
-    data = String(analyzer='snowball')
-    dataHash = String(analyzer='snowball')
-    dataBytes = Integer(analyzer='snowball')
-    regex_hit = Integer(analyzer='snowball')
-    regex_hits = String(analyzer='snowball')
-    searchterm_hit = Integer(analyzer='snowball')
-    searchterm_hits = String(analyzer='snowball')
+    source = String()
+    referrer = String()
+    data = String()
+    dataHash = String()
+    dataBytes = Integer()
+    regex_hit = Integer()
+    regex_hits = String()
+    searchterm_hit = Integer()
+    searchterm_hits = String()
     timeStart = Date()
     timeEnd = Date()
-    config_name = String(analyzer='snowball')
-    config_location = String(analyzer='snowball')
-    config_protocol = String(analyzer='snowball')
-    config_speed = String(analyzer='snowball')
-    config_depth = Integer(analyzer='snowball')
-    config_maxDepth = Integer(analyzer='snowball')
-    config_options = String(analyzer='snowball')
+    config_name = String()
+    config_location = String()
+    config_protocol = String()
+    config_speed = String()
+    config_depth = Integer()
+    config_maxDepth = Integer()
+    config_options = String()
 
     class Meta:
         index = 'default'

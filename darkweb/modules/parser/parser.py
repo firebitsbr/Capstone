@@ -14,19 +14,27 @@ class parser(SocketServer.BaseRequestHandler):
     def setup(self):
         #self.context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
         #self.context.load_cert_chain(certfile=self.cert_file, keyfile=self.key_file)
+        print("parser.py - setup start")
         es_result.init();
+        print("parser.py - setup end")
 
     def handle(self):
         print("New connection from " + str(self.client_address))
         #connstream = self.context.wrap_socket(self.request, server_side=True)
         connstream = self.request
         print("Connection unwraped from " + str(connstream.getpeername()))
+        connstream.setblocking(0)
         try:
-            data = connstream.recv()
+            data = connstream.recv(1024)
             concat=data.decode('utf-8')
-            while self.parse_beacon(connstream, self.decode(concat)):
-                data = connstream.recv()
+            while len(data) > 0:
+                data = connstream.recv(1024)
                 concat+=data.decode('utf-8')
+            print(concat)
+            if self.parse_result(connstream, self.decode(concat)):
+                print("Recieve/Decode Successful.")
+            else:
+                print("Recieve/Decode Failure.")
         finally:
             connstream.shutdown(socket.SHUT_RDWR)
             connstream.close()

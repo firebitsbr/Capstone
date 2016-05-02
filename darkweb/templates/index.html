@@ -1,92 +1,92 @@
 <html>
-	<div class='form'>
-		<form name='configForm' method='post' action='/'>
-			<div class='row'>
-				<label for='searchName'>Search Name:</label>
-				<input type='text' name='searchName' id='searchName' placeholder='Search Name'>	
-			</div>
-			<div class='row'>
-				<label for='protocol'>Protocol</label>
-	<select onchange="change(this)">
-		<option value="tor">TOR</option>
-		<option value="web">WEB</option>
-		<option value="irc">IRC</option>
-	</select>		
-	</div>
-			<div class='row'>
-				<label for='location'>Location:</label>
-				<input type='text' name='location' id='loction' placeholder='URL or IRC channel'>	
-			</div>
-			<div class='row'>
-				<label for='speed'>Crawl Speed:</label>
-				<input type='text' name='speed' id='speed' placeholder='# if seconds'>	
-			</div>
-			<div class='row'>
-				<label for='maxDepth'>Max Crawl Depth:</label>
-				<input type='text' name='maxDepth' id='maxDepth' placeholder='100 links'>	
-			</div>
-			<div class='row'>
-				<label for='options'>Options:</label>
-				<input type='text' name='options' id='options' placeholder='option1:value, option2:value...'>	
-			</div>
-			<div class='row'>
-				<input type='submit' value='Search'>
-			</div>
-		<form name='paramForm' method='post' action='/addParam'>
-			<div class='row'>
-				<label for='addST'>Add Search Term:</label>
-				<input type='text' name='addST' id='addST' placeholder='add new search term'>
-			</div>
-			<div class='row'>
-				<label for='addRE'>Add Regex:</label>
-				<input type='text' name='addRE' id='addRE' placeholder='add new regular expression'>
-			</div>
-			<div class='row'>
-				<input type='submit' value='Add Keywords'>
-			</div>
-		<form name='paramClear' method='post' action='/clearParams'>
-			<div class='row'>
-				<input type='submit' value='Clear Search Keywords' >
-			</div>
-			
-<div id="tor"><h1>TOR Options</h1>robots:True or False (defualt=True)</div>
-<div id="web" style="display:none;"><h1>WEB Options</h1>robots:True or False (default=True)</div>
-<div id="irc" style="display:none"><h1>IRC Options</h1>mins_interval: # mins (default=60) <br>
-total_mins: # mins (defualt=10) <br>
-channels: channel1,channel2,channel3<br>
-nickname: nickname<br>
-if option isn't given, default value is used
-</div>
-<script>
-	var areas=["tor","web","irc"];
-	function change(dom){
-	for(i=0,l=areas.length;i<l;i++){
-	document.getElementById(areas[i]).style.display="none";
-}
-	
-	document.getElementById(dom.value).style.display="";
-}
-</script>
-			<a href="http://localhost:5061">Search Results</a> 
-			{% if msg %}
-			<div class='row'>
-				<span class='error'>{{ msg }}</span>
-			</div>
-			{% endif %}
-			{% if search_params %}
-			<p> Search Parameters:</p>
-			{% for param_name, param_val in search_params %}
-				<p> {{ param_name }}: {{ param_val }}</p>
-			{% endfor %}
-			{% endif %}
-			{% if result %}
-			<p> <b>Past Searches:</b></p>
-			{% for search in result %}
-				<p> {{ search }}</p>
-			{% endfor %}
-			{% endif %}
-				
-			
+<div class='form'>
+    <form name='configForm' method='post' action='/'>
+        <div class='row'>
+            <label for='searchName'>Search Name:</label>
+            <input type='text' name='searchName' id='searchName' placeholder='Search Name'>	
+        </div>
+        <div class='row'>
+            <label>Protocol</label>
+            <select for='protocol' name='protocol' id='protocol' onchange="change(this)">
+                <option value="tor">TOR</option>
+                <option value="web">WEB</option>
+                <option value="irc">IRC</option>
+            </select>		
+        </div>
+        <div class='row'>
+            <label for='location'>Location:</label>
+            <input type='text' name='location' id='location' placeholder='URL or IRC channel'>	
+        </div>
+        <div class='row'>
+            <label for='speed'>Crawl Speed:</label>
+            <input type='text' name='speed' id='speed' placeholder='# if seconds'>	
+        </div>
+        <div class='row'>
+            <label for='maxDepth'>Max Crawl Depth:</label>
+            <input type='text' name='maxDepth' id='maxDepth' placeholder='100 links'>	
+        </div>
+        <div class='row'>
+            <label for='options'>Options:</label>
+            <input type='text' name='options' id='options' placeholder='option1:value, option2:value...'>	
+        </div>
+        <div class='row'>
+            <input type='submit' value='Search'>
+        </div>
+        <form name='paramForm' method='post' action='/addParam'>
+            <div class='row'>
+                <label for='addST'>Add Search Term:</label>
+                <input type='text' name='addST' id='addST' placeholder='add new search term'>
+            </div>
+            <div class='row'>
+                <label for='addRE'>Add Regex:</label>
+                <input type='text' name='addRE' id='addRE' placeholder='add new regular expression'>
+            </div>
+            <div class='row'>
+                <input type='submit' value='Add Keywords'>
+            </div>
+            <form name='paramClear' method='post' action='/clearParams'>
+                <div class='row'>
+                    <input type='submit' value='Clear Search Keywords' >
+                </div>
 
-</html>
+                <div id="tor"><h1>TOR Options</h1>robots:True or False (defualt=True)</div>
+                <div id="web" style="display:none;"><h1>WEB Options</h1>robots:True or False (default=True)</div>
+                <div id="irc" style="display:none"><h1>IRC Options</h1>mins_interval: # mins (default=60) <br>
+                    total_mins: # mins (defualt=10) <br>
+                    channels: channel1,channel2,channel3<br>
+                    nickname: nickname<br>
+                    if option isn't given, default value is used
+                </div>
+                <script>
+var areas=["tor","web","irc"];
+function change(dom){
+    for(i=0,l=areas.length;i<l;i++){
+        document.getElementById(areas[i]).style.display="none";
+    }
+
+    document.getElementById(dom.value).style.display="";
+}
+                </script>
+                <a href="http://localhost:5061">Search Results</a> 
+                {% if msg %}
+                <div class='row'>
+                    <span class='error'>{{ msg }}</span>
+                </div>
+                {% endif %}
+                {% if search_params %}
+                <p> Search Parameters:</p>
+                {% for param_name, param_val in search_params %}
+                <p> {{ param_name }}: {{ param_val }}</p>
+                {% endfor %}
+                {% endif %}
+                {% if result %}
+                <p> <b>Past Searches:</b></p>
+                {% for search in result %}
+                <p> {{ search }}</p>
+                {% endfor %}
+                {% endif %}
+
+
+
+                </html>
 
