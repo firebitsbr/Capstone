@@ -150,7 +150,7 @@ class Crawler:
         hostname = "127.0.0.1"
         port = 4443
         print("Result type: " + str(type(result).__name__))
-        if result != None and type(result).__name__ != "Result":
+        if result != None and not isinstance(result, Result):
             raise Exception("Invalid Parameter: Result not Result object.")
         try:
             ser = jsonpickle.encode(result)

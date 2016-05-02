@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, g
 from darkweb.modules.base.crawlerconfig import CrawlerConfig
 from darkweb.modules.irc.irc import IRC
 from darkweb.modules.web.WebCrawler import WebCrawler
+from darkweb.modules.parser.search import search
 from darkweb.modules.parser.parser import parser
 import SocketServer
 import threading
@@ -20,13 +21,16 @@ def before_first():
     Thread(target=sserver.serve_forever).start()
     print("views.py - init end")
 
-@app.route("/addParams", methods=["POST"])
-def addParams():
+@app.route("/addParam", methods=["POST"])
+def addParam():
     # add new param
+    print("DAD?")
     if request.form['addST']:
         print("Adding searchterm")
+        search().add_searchterm(request.form['addST'])
         # add new search term
     if request.form['addRE']:
+        search().add_regexterm(request.form['addRE'])
         print("Adding regularexpression")
         # add new regex
     result = readSearchFile()

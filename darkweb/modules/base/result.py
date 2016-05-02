@@ -3,6 +3,7 @@
 # Edward Mead
 import hashlib
 import sys
+import base64
 
 class Result:
     def __init__(self, crawlerConfig, timeStart = None, timeEnd = None, source = None, referrer = None, data = ""):
@@ -20,7 +21,7 @@ class Result:
         if data != None and len(data) > 0:
             h = hashlib.sha256()
             h.update(data)
-            return h.digest()
+            return h.hexdigest()
 
     # Get - Where the data was obtained
     def get_source(self):

@@ -1,4 +1,4 @@
-import manageTor                                                # only used for Tor
+from manageTor import manageTor                                                # only used for Tor
 from node import node                                                           #
 from darkweb.modules.base.crawlerconfig import CrawlerConfig    #
 from darkweb.modules.base.crawler import Crawler                                #
@@ -11,12 +11,14 @@ from urlparse import urljoin
 
 
 class WebCrawler(Crawler):
-
+        mtor=None
         def __init__(self, config, robots="True"):
                 self.config = config
                 self.links = []
                 if "robots" in config.options.keys():
                         self.robots = config.options["robots"]
+                else:
+                        self.robots = None
 
         def doCrawl(self):
                 initial_node = node(None, self.config.location, 1)
@@ -39,8 +41,9 @@ class WebCrawler(Crawler):
         def doScrape(self, current_node):
                 timeStart=datetime.datetime.now()
                 if (self.config.protocol == "tor"):     # needs to be verified as the correct variable
-                        tor = manageTor.open()
-                        manageTor.torProxy()
+                        mtor = manageTor()
+                        tor = mtor.open()
+                        mtor.torProxy()
                 #must import after the above two lines are executed
                 import urllib2
                 from bs4 import BeautifulSoup
@@ -52,7 +55,7 @@ class WebCrawler(Crawler):
                         return "NULL"
                 finally:
                         if (self.config.protocol == "tor"):     # needs to be verified as the correct variable
-                                manageTor.close(tor)
+                                mtor.close(tor)
                 soup = BeautifulSoup(data)
 
                 if(current_node.get_currentDepth() < int(self.config.maxDepth)):
@@ -72,12 +75,12 @@ class WebCrawler(Crawler):
 
 
                         if (self.config.protocol == "tor"):
-                                tor = manageTor.open()
-                                manageTor.torProxy()
+                                tor = mtor.open()
+                                mtor.torProxy()
                                 onion=[]
                                 for i in fqlst:
                                         if ".onion" in i:
-                                                if(self.robots=="None"):
+                                                if(self.robots==None):
                                                         onion.append(i)
                                                 else:
                                                         k = i[:29]
@@ -91,12 +94,12 @@ class WebCrawler(Crawler):
                                                                 print "Host unreachable: " + k
                                                         if rp.can_fetch("*", i):
                                                                 onion.append(i)
-                                manageTor.close(tor)
+                                mtor.close(tor)
                                 current_node.set_children(onion)
                         else:
                                 weblist=[]
                                 for i in fqlst:
-                                        if(self.robots=="None"):
+                                        if(self.robots==None):
                                                 weblist.append(i)
                                         else:
                                                 x=i.split("/")                          # custom regex
@@ -110,8 +113,12 @@ class WebCrawler(Crawler):
                                                         print "Host unreachable: " + k
                                                 if rp.can_fetch("*", i):
                                                         weblist.append(i)
+                                current_node.set_children(weblist)
 
-                current_node.set_children(weblist)
+                import urllib2
+                from bs4 import BeautifulSoup
                 timeEnd=datetime.datetime.now()
-                results = Result(self.config, timeStart, timeEnd, current_node.get_url(), current_node.get_parent(), data)
-                return results
+                result = Result(self.config, timeStart, timeEnd, current_node.get_url(), current_node.get_parent(), data)
+                print("Result Created. Type: " + type(result).__name__)
+                print("Result Created. Object: " + str(result))
+                return result

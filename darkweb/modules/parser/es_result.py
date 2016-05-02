@@ -39,6 +39,6 @@ class es_result(DocType):
     class Meta:
         index = 'default'
     def save(self, ** kwargs):
-        return super(ES_Result, self).save(** kwargs)
+        return super(es_result, self).save(** kwargs)
     def delete(self, ** kwargs):
-        return super(ES_Result, self).delete(** kwargs)
+        return super(es_result, self).delete(** kwargs)
