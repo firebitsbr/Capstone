@@ -1,0 +1,6 @@
+elasticsearch_dsl
+elasticsearch
+jsonpickle
+simplejson
+pysocks
+stem
