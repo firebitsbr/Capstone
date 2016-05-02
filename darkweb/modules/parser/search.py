@@ -11,8 +11,21 @@ class Search:
     def add_searchterm(self, term):
         self.searchterms.append(term)
 
+#    def del_searchterm(self, term):
+        #if self.searchterms.contains(term):
+        #@TODO
+
     def add_regexterm(self, term):
         self.regexterms[term] = re.compile(t)
+
+#    def del_regexterm(self, term):
+        #@TODO
+
+    def clear_searchterms(self):
+        self.searchterms = list()
+
+    def clear_regexterms(self):
+        self.regexterms = dict()
 
     def apply_terms(self, data):
         search_hits = self.apply_searchterms(data)

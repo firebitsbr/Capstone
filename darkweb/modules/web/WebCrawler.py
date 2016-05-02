@@ -1,8 +1,8 @@
 import manageTor						# only used for Tor
 from node import node								#
-from crawlerconfig import CrawlerConfig	#
-from crawler import Crawler				#
-from result import *
+from darkweb.modules.base.crawlerconfig import CrawlerConfig	#
+from darkweb.modules.base.crawler import Crawler				#
+from darkweb.modules.base.result import *
 import robotparser
 import datetime
 import time
@@ -16,12 +16,12 @@ class WebCrawler(Crawler):
 		self.config = config
 		self.links = []
 		if "robots" in config.option.keys():
-			self.robots = config.options["robots"]		
+			self.robots = config.options["robots"]
 
 	def doCrawl(self):
 		initial_node = node(None, self.config.location, 1)
 		self.links.append(initial_node)
-		
+
 		results = self.doScrape(initial_node)
 		if results != "NULL":
 			self.send_result(results)
@@ -35,7 +35,7 @@ class WebCrawler(Crawler):
 				if results != "NULL":
 					self.send_result(results)
 			dummy = self.links.pop(0)
-		
+
 	def doScrape(self, current_node):
         	timeStart=datetime.datetime.now()
 		if (self.config.protocol == "tor"):	# needs to be verified as the correct variable
@@ -69,8 +69,8 @@ class WebCrawler(Crawler):
 					fqlst.append(urljoin(current_node.get_url(), n))
 				else:
 					fqlst.append(n)
-		
-		
+
+
 			if (self.config.protocol == "tor"):
 				tor = manageTor.open()
 				manageTor.torProxy()
@@ -110,7 +110,7 @@ class WebCrawler(Crawler):
 							print "Host unreachable: " + k
 						if rp.can_fetch("*", i):
 							weblist.append(i)
-				
+
 				current_node.set_children(weblist)
 		timeEnd=datetime.datetime.now()
 		results = [self.config, timeStart, timeEnd, current_node.get_url(), current_node.get_parent(), data]

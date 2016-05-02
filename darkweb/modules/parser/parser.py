@@ -1,12 +1,12 @@
 import subprocess
 import ssl
 import socket
-#import SocketServer
-import socketserver
+import SocketServer
+#import socketserver
 import jsonpickle
 from es_result import es_result
 
-class parser(socketserver.BaseRequestHandler):
+class parser(SocketServer.BaseRequestHandler):
     cert_file="rsa.crt"
     key_file="rsa.key"
     search = None
@@ -19,7 +19,7 @@ class parser(socketserver.BaseRequestHandler):
     def handle(self):
         print("New connection from " + str(self.client_address))
         #connstream = self.context.wrap_socket(self.request, server_side=True)
-	connstream = self.request
+        connstream = self.request
         print("Connection unwraped from " + str(connstream.getpeername()))
         try:
             data = connstream.recv()
@@ -77,7 +77,7 @@ class parser(socketserver.BaseRequestHandler):
             return True
         return False
 
-    def run(self, port):
-        HOST, PORT = "0.0.0.0", port
-        parser = socketserver.TCPServer((HOST, PORT), parser)
-        parser.serve_forever()
+    #def run(self, port):
+    #    HOST, PORT = "0.0.0.0", port
+    #    parser = socketserver.TCPServer((HOST, PORT), parser)
+    #    parser.serve_forever()

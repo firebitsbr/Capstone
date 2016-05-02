@@ -5,9 +5,13 @@ import socket
 import time
 import datetime
 import threading
-from crawler import Crawler
-from result import *
-from crawlerconfig import * 
+#from darkweb.modules.base
+from darkweb.modules.base.crawler import Crawler
+from darkweb.modules.base.result import *
+from darkweb.modules.base.crawlerconfig import *
+#from crawler import Crawler
+#from result import *
+#from crawlerconfig import *
 
 class IRC(Crawler):
     def __init__(self, config, nickname="aaabbbcccddd", mins_interval="10", total_mins="60"):
@@ -50,18 +54,18 @@ class IRC(Crawler):
             if(temp == "" or temp == None or temp == "-1"):
                 break
             if("End of /MOTD" in temp):
-                break  
+                break
         print("Connected to %s!" % self.server)
-        return 
+        return
 
     # join an irc channel
-    # must be connected to server first    
+    # must be connected to server first
     def joinChannel(self, channel):
         self.channel = channel
         self.irc.send("JOIN " + self.channel + "\n")
-        return 
+        return
 
-    # Recv data from irc server 
+    # Recv data from irc server
     def get_text(self):
         text = self.irc.recv(2048)
 
@@ -77,7 +81,7 @@ class IRC(Crawler):
         data = ""
         while(True):
             d = self.irc.recv(2048)
-            data += d 
+            data += d
             if(d == "" or d == None or d == "-1"):
                 break
             if("End of /LIST" in d):
@@ -90,7 +94,7 @@ class IRC(Crawler):
                 channel = line.split(" ")[3]
                 channels.append(channel)
         return channels
-        
+
     # def doCrawl(self, mins_interval, total_mins, crawler_config, channel):
     def doCrawl(self, channel=None):
         session_text = ""
@@ -100,15 +104,15 @@ class IRC(Crawler):
 	if(channel == None):
 		self.channels = self.getChannels()
 		channel = self.channels[0]
-        self.joinChannel(channel) 
+        self.joinChannel(channel)
         print("Starting to listen... %s" % channel)
         start_time_total = time.time()
         start_time = time.time()
-        cur_time = time.time() 
+        cur_time = time.time()
         while(not finished):
             #print("cur_time: %d total_time: %d"  % ((cur_time - start_time), (cur_time - start_time_total)))
             text = self.get_text()
-            if text != "": 
+            if text != "":
                 print(session_text)
                 session_text += (text+"\n")
             cur_time = time.time()
@@ -124,7 +128,7 @@ class IRC(Crawler):
                 start_time = time.time()
                 if((cur_time - start_time_total) >= self.total_mins*60):
                     finished = True
-        return 
+        return
 
     # run each crawl in a thread
     def run(self, channels):
@@ -134,10 +138,10 @@ class IRC(Crawler):
 	    t = threading.Thread(target=self.doCrawl, args=(channels[i], ))
 	    t.start()
         return
-        
+
 if __name__ == "__main__":
     options = { 'mins_interval': "1",
-                'total_mins': "1",    
+                'total_mins': "1",
                 # 'channels': "security,linux,information-node"
                 'channels': "linux"
     }
