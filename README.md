@@ -1,26 +1,17 @@
 == Dark Web Recon ==
 
-  
-
 Contributors: Jacob Dresdale, Joey Fitzpatrick, Edward Mead, Aaron Pinzer,
 Jimmy Trimer, and Bill Stackpole
-
 Version: 1.0  
-
 License: GPLv2 or later  
-
 License URI: http://www.gnu.org/licenses/gpl-2.0.html  
-  
 
 Dark Web Recon is a tool designed to have a web front end where a user can
 input a web address or IRC channel and parameters for which they would like to
 search. The searches run through module tied to the protocol selected and sent
 to a preconfigured, already in-place Elasticsearch Database.
 
-  
-
 == Description ==  
-  
 
 Dark Web Recon is a tool designed at Rochester Institute of
 Technology as a way to search for information efficiently on the Dark Web. We
@@ -28,7 +19,7 @@ have developed with extensibility in mind and provide the ability to add new
 crawling modules. Using the parent classes a developer can easily create their
 own unique crawler modules to work with the developed parser.
 
- 
+.
 
 The following components are included in version 1.0: The
 Parser, the Web Front End, A Web/TOR Crawler, and an IRC Crawler. A server
@@ -186,20 +177,20 @@ server that will run ELK
 Install
 
 _a.   
-__sudo apt-get install
+_sudo apt-get install
 openjdk-7-jre-headless_
 
 2.   
 Verify the Java Installation
 
 _a.   
-__java -version_
+_java -version_
 
 3.   
 Update Linux packages
 
 _a.   
-__sudo apt-get update && sudo
+_sudo apt-get update && sudo
 apt-get upgrade_
 
 4.   
@@ -213,25 +204,25 @@ a.   
 Add the following Elasticsearch list to the key:
 
 _a.   
-__echo "deb
+_echo "deb
 http://packages.elastic.co/elasticsearch/2.x/debian stable main" | sudo
 tee -a /etc/apt/sources.list.d/elasticsearch-2.x.list_
 
 _b.   
-__sudo apt-get update_
+_sudo apt-get update_
 
 6.   
 Install Elasticsearch:
 
 _a.   
-__sudo apt-get install -y elasticsearch_
+_sudo apt-get install -y elasticsearch_
 
 7.   
 Elasticsearch is now installed. The following
 command will open the configuration for editing:
 
 _a.   
-__sudo vi
+_sudo vi
 /etc/elasticsearch/elasticsearch.yml_
 
 8.   
@@ -246,20 +237,20 @@ network.host: localhost
 Start service:
 
 _a.   
-__sudo service elasticsearch start_
+_sudo service elasticsearch start_
 
 10. 
 Test the service
 
 _a.   
-__curl localhost:9200_
+_curl localhost:9200_
 
 11. 
 The run the following command to start
 Elasticsearch on boot up:
 
 _a.   
-__sudo update-rc.d elasticsearch defaults
+_sudo update-rc.d elasticsearch defaults
 95 10_
 
  
@@ -274,32 +265,32 @@ repository as Elasticsearch. The public key has already been installed, so it’
 time to create a Logstash source list:
 
 _a.   
-__echo 'deb http://packages.elastic.co/logstash/2.2/debian
+_echo 'deb http://packages.elastic.co/logstash/2.2/debian
 stable main' | sudo tee /etc/apt/sources.list.d/logstash-2.2.x.list_
 
 2.   
 Update your apt package database:
 
 _a.   
-__sudo apt-get update_
+_sudo apt-get update_
 
 3.   
 Install Logstash
 
 _a.   
-__sudo apt-get install logstash_
+_sudo apt-get install logstash_
 
 4.   
 Ensure that logstash will autoboot on start:
 
 _a.   
-__sudo update-rc.d logstash defaults 97 8_
+_sudo update-rc.d logstash defaults 97 8_
 
 5.   
 Start logstash:
 
 _a.   
-__sudo service logstash start_
+_sudo service logstash start_
 
 6.   
 Redirect the System logs to Logstash:
@@ -309,7 +300,7 @@ Create the file "logstash-syslog.conf"
 with the command:
 
 _a.   
-__touch /etc/logstash/conf.d/logstash-syslog.conf_
+_touch /etc/logstash/conf.d/logstash-syslog.conf_
 
 8.   
 Copy and paste the following code into the .conf
@@ -387,17 +378,17 @@ _}_
 Next, point logstash to the correct config file:
 
 _a.   
-__cd /opt/logstash_
+_cd /opt/logstash_
 
 _b.   
-__bin/logstash -f
+_bin/logstash -f
 /etc/logstash/conf.d/logstash-syslog.conf_
 
 11. 
 Finally, restart logstash
 
 _a.   
-__sudo service logstash restart_
+_sudo service logstash restart_
 
  
 
@@ -409,7 +400,7 @@ __sudo service logstash restart_
 Create the Kibana source list:
 
 _a.   
-__echo "deb
+_echo "deb
 http://packages.elastic.co/kibana/4.4/debian stable main" | sudo tee -a
 /etc/apt/sources.list.d/kibana-4.4.x.list_
 
@@ -417,19 +408,19 @@ http://packages.elastic.co/kibana/4.4/debian stable main" | sudo tee -a
 Update your apt package database:
 
 _a.   
-__sudo apt-get update_
+_sudo apt-get update_
 
 3.   
 Install Kibana
 
 _a.   
-__sudo apt-get install -y kibana_
+_sudo apt-get install -y kibana_
 
 4.   
 Go to /opt/kibana/config
 
 _a.   
-__cd /opt/kibana/config_
+_cd /opt/kibana/config_
 
 5.   
 Edit the configuration file and make the
@@ -448,7 +439,7 @@ ii.server.host "localhost"
 Auto start:
 
 _a.   
-__sudo update-rc.d kibana defaults 96 9_
+_sudo update-rc.d kibana defaults 96 9_
 
  
 
