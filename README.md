@@ -378,7 +378,7 @@ sudo update-rc.d kibana defaults 96 9_
 == Parse and Module Dependencies ==
 
 The dependencies outlined below are for the parse and modules. A full list of dependencies is available in the requirements.txt file.
-All dependencies should install with the command ‘_pip install -r requirements.txt_’. The following dependencies should be verified manually.
+All dependencies should install with the command ‘*pip install -r requirements.txt*’. In order to install tor, the command '*sudo apt-get install tor*'. The following dependencies should be verified manually.
 
 1.   
 python2
@@ -401,6 +401,6 @@ beautifulsoup
 7.   
 tor
 
-== Parser and Module Installation Installation ==  
+== Parser and Module Installation ==  
 
 To install the parser and other modules, all that is required is to fork a copy of the repo from Github onto the server intended to run the parser and other modules (provided the dependencies are already installed).
