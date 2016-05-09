@@ -106,8 +106,10 @@ Disk space depends directly upon how much (in GB) of logs you are pulling in or 
 **Network:**
 
 If you are going to split up the stack, crawlers, parser,
-etc. then latency can certainly become an issue. Modern data-center networking
-of 1GbE, 10 GbE is sufficient for the majority of cluster applications. 
+etc. then latency can become an issue if t
+
+Latency may become an issue should the stack, crawler, parser, etc. be separated. Modern data-center networking
+of Gigabit or better should be suffificient for the majority of cluster applications.
 
 [https](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[://](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[www](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[.](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[elastic](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[.](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[co](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[/](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[guide](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[/](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[en](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[/](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[elasticsearch](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[/](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[guide](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[/](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[current](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[/](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[hardware](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[.](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[html](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)
 
