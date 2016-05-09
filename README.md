@@ -10,7 +10,7 @@ Dark Web Recon is a tool designed to have a web front end where a user can direc
 
 == Description ==  
 
-Dark Web Recon was designed at Rochester Institute of Technology as a way to search for information efficiently on the Dark Web. We
+Dark Web Recon was designed at Rochester Institute of Technology as a way to search for information on the Dark Web. We
 have developed with extensibility in mind and provide the ability to add new
 crawling modules. Using the *parent classes* a developer can easily create their
 own unique crawler modules to work with the developed parser.
@@ -377,10 +377,8 @@ sudo update-rc.d kibana defaults 96 9_
 
 == Parse and Module Dependencies ==
 
-The dependencies outlined below are for the parse and
-modules. A full list of dependencies is available in the requirements.txt file.
-All dependencies should install with the command ‘_pip install -r
-requirements.txt_’. The following dependencies should be verified manually.
+The dependencies outlined below are for the parse and modules. A full list of dependencies is available in the requirements.txt file.
+All dependencies should install with the command ‘_pip install -r requirements.txt_’. The following dependencies should be verified manually.
 
 1.   
 python2
@@ -405,6 +403,4 @@ tor
 
 == Parser and Module Installation Installation ==  
 
-Forking a copy of the repo in Github on the server running
-the parser and other modules, provided the dependencies are installed is all
-that is required to install the parser and other modules.
+To install the parser and other modules, all that is required is to fork a copy of the repo from Github onto the server intended to run the parser and other modules (provided the dependencies are already installed).
