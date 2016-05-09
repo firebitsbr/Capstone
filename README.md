@@ -189,8 +189,8 @@ Now, we will want to restrict access to our
 Elasticsearch instance (port 9200). With the .yml open, find the network.host
 line, uncomment it, and replace its value with "localhost"
 
-a.   
-network.host: localhost
+>_a.   
+network.host: localhost_
 
 9.   
 Start service:
