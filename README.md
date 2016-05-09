@@ -82,7 +82,7 @@ Dark Web Recon’s Parser accepts data from any Crawler
 modules, and processes any new data received on its own thread. Search terms
 and regular expressions set in the Web front end will be used by the parser to
 match data that will then be sent to the ELK database. Each Crawler sends data
-to the Parser via a **send_result** function call which is defined in the
+to the Parser via a *send_result* function call which is defined in the
 _Crawler Super Class_. Search terms or regular expressions are added directly to
 the search _class_ via _add_searchterm_ or _add_regexterm_. _ES_Result_
 class is created and pushed directly into Elasticsearch using the _Elasticsearch_DSL_
