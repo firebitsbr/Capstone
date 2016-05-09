@@ -35,8 +35,8 @@ results found. Component breakdowns are included below:
 
 Dark Web Recon’s Web Front end is designed to communicate
 with the back end components. The user provides a
-domain, and search terms and instructs the search to run. For _web_ and _TOR_ domain searches, the query must
-model ‘_http://[url]/_’. This ensures
+domain, and search terms and instructs the search to run. For *web* and *TOR* domain searches, the query must
+model ‘*http://[url]/*’. This ensures
 the web site queried will return possible results. The user can continue to add
 searches, each of which are threaded and will execute as quickly as the
 hardware platform allows. The web front-end can be stylized by editing the CSS
@@ -52,18 +52,18 @@ Dark Web Recon to use a database and be searched in real time. The only limitati
 
 == Web/Tor Crawler ==
 
-The _Web/Tor Crawler Class_ is called by the web front end. 
+The *Web/Tor Crawler Class* is called by the web front end. 
 Dark Web Recon has the capability to crawl any site. By default, it
 honors Robots.txt but allows for a manual override of this setting in the web
 interface. Any use of this feature is the sole responsibility of the user and
 any legal action taken against the user is the responsibility of the user and
-not of any developers on this project. If the web interface has the _tor_
+not of any developers on this project. If the web interface has the *tor*
 flag enabled, then a proxy is opened for command line access to TOR allowing
 the site to be crawled. The proxy is closed when the crawler has completed. All
-crawls have a _max depth_ setting which limits searches from going on
+crawls have a *max depth* setting which limits searches from going on
 indefinitely. The larger the depth, the longer the search will take. As long as
 hardware resources are adequate; deeper searches are likely to take longer. 
-All data will be sent to the _results class_ which sends the
+All data will be sent to the *results class* which sends the
 crawled information to the Parser.
 
 == IRC Crawler ==
@@ -83,10 +83,10 @@ modules, and processes any new data received on its own thread. Search terms
 and regular expressions set in the Web front end will be used by the parser to
 match data that will then be sent to the ELK database. Each Crawler sends data
 to the Parser via a *send_result* function call which is defined in the
-_Crawler Super Class_. Search terms or regular expressions are added directly to
-the search _class_ via _add_searchterm_ or _add_regexterm_. _ES_Result_
-class is created and pushed directly into Elasticsearch using the _Elasticsearch_DSL_
-library
+*Crawler Super Class*. Search terms or regular expressions are added directly to
+the search *class* via *add_searchterm* or *add_regexterm*. *ES_Result*
+class is created and pushed directly into Elasticsearch using the *Elasticsearch_DSL*
+library.
 
 == ELK System Requirements ==
 
