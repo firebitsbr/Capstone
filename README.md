@@ -121,20 +121,20 @@ server that will run ELK
 1.   
 Install
 
->_.   
+>_   
 sudo apt-get install
 openjdk-7-jre-headless_
 
 2.   
 Verify the Java Installation
 
->_a.   
+>_   
 java -version_
 
 3.   
 Update Linux packages
 
->_a.   
+>_   
 sudo apt-get update && sudo
 apt-get upgrade_
 
