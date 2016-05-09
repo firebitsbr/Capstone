@@ -142,7 +142,7 @@ openjdk-7-jre-headless_
 2.   
 Verify the Java Installation
 
-_a.   
+>_a.   
 _java -version_
 
 3.   
