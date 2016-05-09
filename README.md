@@ -6,17 +6,13 @@ Version: 1.0
 License: GPLv2  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html  
 
-Dark Web Recon is a tool designed to have a web front end where a user can
-direct a search term towards a input resource, such as a web address or IRC channel and parameters for which they would like to
-search. The searches run through modules tied to the selected protocol and sent
-to a preconfigured, already in-place Elasticsearch Database.
+Dark Web Recon is a tool designed to have a web front end where a user can direct a search term towards a input resource, such as a web address or IRC channel and parameters for which they would like to search. The searches run through modules tied to the selected protocol and sent to a preconfigured, already in-place Elasticsearch Database.
 
 == Description ==  
 
-Dark Web Recon was designed at Rochester Institute of
-Technology as a way to search for information efficiently on the Dark Web. We
+Dark Web Recon was designed at Rochester Institute of Technology as a way to search for information efficiently on the Dark Web. We
 have developed with extensibility in mind and provide the ability to add new
-crawling modules. Using the parent classes a developer can easily create their
+crawling modules. Using the *parent classes* a developer can easily create their
 own unique crawler modules to work with the developed parser.
 
 The following components are included in version 1.0: The
@@ -89,31 +85,23 @@ library.
 
 == ELK System Requirements ==
 
-The ELK hardware requirements really depend upon how much
-data you plan on pulling on in. Another main hardware factor is whether the ELK
-stack will be hosted on a single machine or if it will be spread across many.
-The following recommendations are taken from [elastic](https://elastic.co/)[.](https://elastic.co/)[co](https://elastic.co/) and are noted as guidance, actualy
-performance may vary.
+The ELK hardware requirements really depend upon how much data is being managed. Another main hardware factor is whether the ELK
+stack will be hosted on a single machine or if it will be spread across multiple.
+The following recommendations are taken from [elastic](https://elastic.co/)[.](https://elastic.co/)[co](https://elastic.co/) and are noted as guidance, actual performance may vary.
 
 **Memory:**
 
-16GB and 32GB RAM are a common starting point for ELK stacks
-with upwards of 64GB RAM being the sweet spot for large amounts of data
+16GB and 32GB RAM are a common starting point for ELK stacks with upwards of 64GB RAM being the sweet spot for large amounts of data
 processing.
 
 **CPU’s:**
 
-With memory being the first bottleneck, there is no “right”
-CPU to really use. Generally speaking, you should choose a modern processor
-with multiple cores that has anywhere from 2 to 8 cores. More cores will only
-improve performance. 
+With memory being the first bottleneck, there is no “right” CPU to use. Generally speaking, one should choose a modern processor
+with multiple cores ranging from two to eight. More cores will only improve performance. 
 
 **Disks:**
 
-Disk space depends directly upon how much (in GB) of logs
-you are pulling in. Multiple TB HDDs will do you just fine but SSD are
-obviously the best choice if you can afford them for the project as it will net
-substantially greater performance.
+Disk space depends directly upon how much (in GB) of logs you are pulling in or to be processed. Multiple TB HDDs will do just fine but SSD are obviously the best choice if they fit into the budget of the project add substantially greater performance.
 
 **Network:**
 
