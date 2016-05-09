@@ -19,8 +19,6 @@ have developed with extensibility in mind and provide the ability to add new
 crawling modules. Using the parent classes a developer can easily create their
 own unique crawler modules to work with the developed parser.
 
-.
-
 The following components are included in version 1.0: The
 Parser, the Web Front End, A Web/TOR Crawler, and an IRC Crawler. A server
 needs to be configured with an ELK stack in place (Elasticsearch, Logstash, and
