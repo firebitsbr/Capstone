@@ -1,6 +1,7 @@
-# Crawler Configuration
-# Defines what a crawler should do
-# Edward Mead
+"""
+crawlerconfig.py
+Defines what a crawler should do
+"""
 
 class CrawlerConfig:
 
