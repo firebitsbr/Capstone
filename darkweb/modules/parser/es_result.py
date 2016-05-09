@@ -1,9 +1,15 @@
+"""
+es_result.py
+Result object used to push to ElasticSearch
+"""
 from datetime import datetime
 from elasticsearch_dsl import DocType, String, Date, Integer
 from elasticsearch_dsl.connections import connections
 from elasticsearch import Elasticsearch, RequestsHttpConnection
 
-
+"""
+Future work: certs, TLS, or any kind of security/auth.
+"""
     #http_auth=('user', 'secret'),
     #verify_certs=True,
     #ca_certs='/path/to/cacert.pem',
@@ -16,6 +22,10 @@ es = Elasticsearch(
 )
 connections.add_connection('default', es)
 
+"""
+es_result
+Define a result class to be passed to ElasticSearch directly
+"""
 class es_result(DocType):
     source = String()
     referrer = String()
