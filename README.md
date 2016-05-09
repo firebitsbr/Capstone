@@ -179,14 +179,13 @@ sudo service logstash start_
 6.   
 Redirect the System logs to Logstash:
 
-7.   
 Create the file "logstash-syslog.conf"
 with the command:
 
 >_   
 touch /etc/logstash/conf.d/logstash-syslog.conf_
 
-8.   
+7.   
 Copy and paste the following code into the .conf
 file:
 
@@ -215,7 +214,7 @@ host =&gt; localhost }_
 
 >_}_
 
-9.   
+8.   
 The configuration above tells Logstash to
 collect all files with .log extention in /var/log, /var/log/messages and
 /var/log/syslog.
