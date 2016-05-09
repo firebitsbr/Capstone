@@ -33,7 +33,7 @@ indefinitely. The larger the depth, the longer the search will take (increasing 
 
 == IRC Crawler ==
 
-Dark Web Recon has IRC capabilities. If the IRC module is chosen in the web front end, then one o rmore channel names will need to be provided by the user. Dark Web Recon can join as many channels as desired, and each channel will run in a new thread. All activity will be monitored for a duration provided by the user. A time interval is specified in the web front end, providing a total search time and an interval at which to send data to be parsed. 
+Dark Web Recon has IRC capabilities. If the IRC module is chosen in the web front end, then one or more channel names will need to be provided by the user. Dark Web Recon can join as many channels as desired, and each channel will run in a new thread. All activity will be monitored for a duration provided by the user. A time interval is specified in the web front end, providing a total search time and an interval at which to send data to be parsed. 
 
 == Parser ==
 
@@ -61,26 +61,19 @@ Disk space depends directly upon how much (in GB) of logs you are pulling in or 
 
 **Network:**
 
-If you are going to split up the stack, crawlers, parser,
-etc. then latency can become an issue if t
-
-Latency may become an issue should the stack, crawler, parser, etc. be separated. Modern data-center networking
-of Gigabit or better should be suffificient for the majority of cluster applications.
+Latency may become an issue should the stack, crawler, parser, etc. be separated. Modern data-center networking of Gigabit or better should be suffificient for the majority of cluster applications.
 
 [https](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[://](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[www](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[.](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[elastic](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[.](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[co](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[/](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[guide](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[/](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[en](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[/](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[elasticsearch](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[/](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[guide](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[/](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[current](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[/](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[hardware](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[.](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[html](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)
 
 == ELK Installation ==  
   
-The following should be run from the command line on the
-server that will run ELK
+The following should be run from the command line on the server that will run ELK
 
 1.   
 Install
-
 >_   
 sudo apt-get install
 openjdk-7-jre-headless_
-
 2.   
 Verify the Java Installation
 
