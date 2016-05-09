@@ -84,8 +84,7 @@ and regular expressions set in the Web front end will be used by the parser to
 match data that will then be sent to the ELK database. Each Crawler sends data
 to the Parser via a *send_result* function call which is defined in the
 *Crawler Super Class*. Search terms or regular expressions are added directly to
-the search *class* via *add_searchterm* or *add_regexterm*. *ES_Result*
-class is created and pushed directly into Elasticsearch using the *Elasticsearch_DSL*
+the *search class* via *add_searchterm* or *add_regexterm*. *ES_Result class* is created and pushed directly into Elasticsearch using the *Elasticsearch_DSL*
 library.
 
 == ELK System Requirements ==
