@@ -143,13 +143,13 @@ openjdk-7-jre-headless_
 Verify the Java Installation
 
 >_a.   
-_java -version_
+java -version_
 
 3.   
 Update Linux packages
 
-_a.   
-_sudo apt-get update && sudo
+>_a.   
+sudo apt-get update && sudo
 apt-get upgrade_
 
 4.   
@@ -162,26 +162,26 @@ a.   
 5.   
 Add the following Elasticsearch list to the key:
 
-_a.   
-_echo "deb
+>_a.   
+echo "deb
 http://packages.elastic.co/elasticsearch/2.x/debian stable main" | sudo
 tee -a /etc/apt/sources.list.d/elasticsearch-2.x.list_
 
-_b.   
-_sudo apt-get update_
+>_b.   
+sudo apt-get update_
 
 6.   
 Install Elasticsearch:
 
-_a.   
-_sudo apt-get install -y elasticsearch_
+>_a.   
+sudo apt-get install -y elasticsearch_
 
 7.   
 Elasticsearch is now installed. The following
 command will open the configuration for editing:
 
-_a.   
-_sudo vi
+>_a.   
+sudo vi
 /etc/elasticsearch/elasticsearch.yml_
 
 8.   
@@ -195,61 +195,57 @@ network.host: localhost
 9.   
 Start service:
 
-_a.   
-_sudo service elasticsearch start_
+>_a.   
+sudo service elasticsearch start_
 
 10. 
 Test the service
 
-_a.   
-_curl localhost:9200_
+>_a.   
+curl localhost:9200_
 
 11. 
 The run the following command to start
 Elasticsearch on boot up:
 
-_a.   
-_sudo update-rc.d elasticsearch defaults
+>_a.   
+sudo update-rc.d elasticsearch defaults
 95 10_
 
- 
-
 == Installing Logstash ==
-
- 
 
 1.   
 The Logstash package is available from the same
 repository as Elasticsearch. The public key has already been installed, so it’s
 time to create a Logstash source list:
 
-_a.   
-_echo 'deb http://packages.elastic.co/logstash/2.2/debian
+>_a.   
+echo 'deb http://packages.elastic.co/logstash/2.2/debian
 stable main' | sudo tee /etc/apt/sources.list.d/logstash-2.2.x.list_
 
 2.   
 Update your apt package database:
 
-_a.   
-_sudo apt-get update_
+>_a.   
+sudo apt-get update_
 
 3.   
 Install Logstash
 
-_a.   
-_sudo apt-get install logstash_
+>_a.   
+sudo apt-get install logstash_
 
 4.   
 Ensure that logstash will autoboot on start:
 
-_a.   
-_sudo update-rc.d logstash defaults 97 8_
+>_a.   
+sudo update-rc.d logstash defaults 97 8_
 
 5.   
 Start logstash:
 
-_a.   
-_sudo service logstash start_
+>_a.   
+sudo service logstash start_
 
 6.   
 Redirect the System logs to Logstash:
@@ -258,18 +254,18 @@ Redirect the System logs to Logstash:
 Create the file "logstash-syslog.conf"
 with the command:
 
-_a.   
-_touch /etc/logstash/conf.d/logstash-syslog.conf_
+>_a.   
+touch /etc/logstash/conf.d/logstash-syslog.conf_
 
 8.   
 Copy and paste the following code into the .conf
 file:
 
-_input {_
+>input {_
 
-_file {_
+>file {_
 
-_path =&gt; [
+>path =&gt; [
 "/var/log/*.log", "/var/log/messages",
 "/var/log/syslog" ]_
 
@@ -336,50 +332,46 @@ _}_
 10. 
 Next, point logstash to the correct config file:
 
-_a.   
-_cd /opt/logstash_
+>a.   
+cd /opt/logstash_
 
-_b.   
-_bin/logstash -f
+>b.   
+bin/logstash -f
 /etc/logstash/conf.d/logstash-syslog.conf_
 
 11. 
 Finally, restart logstash
 
-_a.   
-_sudo service logstash restart_
-
- 
+>a.   
+sudo service logstash restart_
 
 == Installing Kibana ==
-
- 
 
 1.   
 Create the Kibana source list:
 
-_a.   
-_echo "deb
+>_a.   
+echo "deb
 http://packages.elastic.co/kibana/4.4/debian stable main" | sudo tee -a
 /etc/apt/sources.list.d/kibana-4.4.x.list_
 
 2.   
 Update your apt package database:
 
-_a.   
-_sudo apt-get update_
+>_a.   
+sudo apt-get update_
 
 3.   
 Install Kibana
 
-_a.   
-_sudo apt-get install -y kibana_
+>_a.   
+sudo apt-get install -y kibana_
 
 4.   
 Go to /opt/kibana/config
 
-_a.   
-_cd /opt/kibana/config_
+>_a.   
+cd /opt/kibana/config_
 
 5.   
 Edit the configuration file and make the
@@ -397,21 +389,15 @@ ii.server.host "localhost"
 6.   
 Auto start:
 
-_a.   
-_sudo update-rc.d kibana defaults 96 9_
-
- 
+>_a.   
+sudo update-rc.d kibana defaults 96 9_
 
 == Parse and Module Dependencies ==
-
- 
 
 The dependencies outlined below are for the parse and
 modules. A full list of dependencies is available in the requirements.txt file.
 All dependencies should install with the command ‘_pip install -r
 requirements.txt_’. The following dependencies should be verified manually.
-
- 
 
 1.   
 python2
@@ -434,10 +420,7 @@ beautifulsoup
 7.   
 tor
 
- 
-
 == Parser and Module Installation Installation ==  
-  
 
 Forking a copy of the repo in Github on the server running
 the parser and other modules, provided the dependencies are installed is all
