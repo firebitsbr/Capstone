@@ -263,28 +263,28 @@ file:
 
 >input {_
 
->file {_
+>>file {_
 
->path =&gt; [
+>>path =&gt; [
 "/var/log/*.log", "/var/log/messages",
 "/var/log/syslog" ]_
 
-_type =&gt;
+>>_type =&gt;
 "syslog"_
 
-_}_
+>>_}_
 
-_}_
+>>_}_
 
-_output {_
+>>_output {_
 
-_elasticsearch {
+>>_elasticsearch {
 host =&gt; localhost }_
 
-_stdout { codec
+>>_stdout { codec
 =&gt; rubydebug }_
 
-_}_
+>_}_
 
 9.   
 The configuration above tells Logstash to
@@ -295,39 +295,39 @@ collect all files with .log extention in /var/log, /var/log/messages and
 Next, we will create a filter to prevent
 Elasticsearch to store logs in the message field and simplify the analysis.
 
-_filter {_
+>_filter {_
 
-_if [type] == "syslog"
+>>_if [type] == "syslog"
 {_
 
-_grok {_
+>>_grok {_
 
-_match =&gt; {
+>>>_match =&gt; {
 "message" =&gt; "%{SYSLOGTIMESTAMP:syslog_timestamp}
 %{SYSLOGHOST:syslog_hostname} %{DATA:syslog_program}(?:\[%{POSINT:syslog_pid}\])?:
 %{GREEDYDATA:syslog_message}" }_
 
-_add_field
+>>>_add_field
 =&gt; [ "received_at", "%{@timestamp}" ]_
 
-_add_field
+>>>_add_field
 =&gt; [ "received_from", "%{host}" ]_
 
-_}_
+>>>_}_
 
-_syslog_pri { }_
+>>>_syslog_pri { }_
 
-_date {_
+>>>_date {_
 
-_match =&gt; [
+>>>_match =&gt; [
 "syslog_timestamp", "MMM 
 d HH:mm:ss", "MMM dd HH:mm:ss" ]_
 
-_}_
+>>>_}_
 
-_}_
+>>_}_
 
-_}_
+>_}_
 
 10. 
 Next, point logstash to the correct config file:
