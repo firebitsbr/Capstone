@@ -10,12 +10,12 @@ Dark Web Recon is a tool designed to have a web front end where a user can direc
 
 == Description ==  
 
-Dark Web Recon was designed at Rochester Institute of Technology as a way to search for information on the Dark Web. This product has been developed with extensibility in mind and provide the ability to add new crawling modules. Using the *parent classes* a developer can easily create their own unique crawler modules to work with the developed parser.
+Dark Web Recon was designed at Rochester Institute of Technology as a way to search for information on the Dark Web. This product has been developed with extensibility in mind and provides the ability to add new crawling modules. Using the *parent classes* a developer can easily create their own unique crawler modules to work with the developed parser.
 
 The following components are included in version 1.0: The Parser, the Web Front End, A Web/TOR Crawler, and an IRC Crawler. A server
 needs to be configured with an ELK stack in place (Elasticsearch, Logstash, and Kibana) which will act as the database that will store all successful search queries.
 
-To use the program, once properly configured a user will enter a query in the user friendly web interface, which will be sent to the
+To use the program, once properly configured a user will enter a query in the user friendly web interface which will be sent to the
 appropriate crawling module automatically. The crawler will send the results to the parser which will check for keyword matches. All matches, stored in the Elasticsearch database, can be retrieved at a later time. The web interface for Kibana lets a user view any queries made and use the data as they see fit. Kibana can be configured to render graphs and pie charts of results found. Component breakdowns are included below:
 
 == Web Front End ==
@@ -347,7 +347,7 @@ sudo update-rc.d kibana defaults 96 9_
 == Parse and Module Dependencies ==
 
 The dependencies outlined below are for the parse and modules. A full list of dependencies is available in the requirements.txt file.
-All dependencies should install with the command ‘*pip install -r requirements.txt*’. In order to install tor, the command '*sudo apt-get install tor*'. The following dependencies should be verified manually.
+All dependencies should install with the command ‘*pip install -r requirements.txt*’. In order to install *tor*, use the command '*sudo apt-get install tor*'. The following dependencies should be verified manually.
 
 1.   
 python2
