@@ -364,8 +364,8 @@ Edit the configuration file and make the
 appropriate changes:
 
 >_   
-Example:
->>_i.server.port: 6501_
+_Example:_
+>>_server.port: 6501_
 
 ii.server.host "localhost"
 
