@@ -3,17 +3,17 @@
 Contributors: Jacob Dresdale, Joey Fitzpatrick, Edward Mead, Aaron Pinzer,
 Jimmy Trimer, and Bill Stackpole
 Version: 1.0  
-License: GPLv2 or later  
+License: GPLv2  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html  
 
 Dark Web Recon is a tool designed to have a web front end where a user can
-input a web address or IRC channel and parameters for which they would like to
-search. The searches run through module tied to the protocol selected and sent
+direct a search term towards a input resource, such as a web address or IRC channel and parameters for which they would like to
+search. The searches run through modules tied to the selected protocol and sent
 to a preconfigured, already in-place Elasticsearch Database.
 
 == Description ==  
 
-Dark Web Recon is a tool designed at Rochester Institute of
+Dark Web Recon was designed at Rochester Institute of
 Technology as a way to search for information efficiently on the Dark Web. We
 have developed with extensibility in mind and provide the ability to add new
 crawling modules. Using the parent classes a developer can easily create their
@@ -22,22 +22,20 @@ own unique crawler modules to work with the developed parser.
 The following components are included in version 1.0: The
 Parser, the Web Front End, A Web/TOR Crawler, and an IRC Crawler. A server
 needs to be configured with an ELK stack in place (Elasticsearch, Logstash, and
-Kibana) which will act as the database for all search queries.
+Kibana) which will act as the database that will store all successful search queries.
 
 To use the program, once properly configured a user will
 enter a query in the user friendly web interface, which will be sent to the
 appropriate crawling module automatically. The crawler will send the results to
-the parser which will check for keyword matches. All matches will be stored in
-the Elasticsearch database which can be retrieved at a later time. The web
-interface for Kibana lets a user view any queries made and use the data how
+the parser which will check for keyword matches. All matches, stored in the Elasticsearch database, can be retrieved at a later time. The web interface for Kibana lets a user view any queries made and use the data as
 they see fit. Kibana can be configured to render graphs and pie charts of
 results found. Component breakdowns are included below:
 
 == Web Front End ==
 
 Dark Web Recon’s Web Front end is designed to communicate
-with the back end components, making it more user friendly. The user provides a
-domain, and search terms and instructs the search to run. For web and _TOR_ domain searches, the query must
+with the back end components. The user provides a
+domain, and search terms and instructs the search to run. For _web_ and _TOR_ domain searches, the query must
 model ‘_http://[url]/_’. This ensures
 the web site queried will return possible results. The user can continue to add
 searches, each of which are threaded and will execute as quickly as the
@@ -50,13 +48,12 @@ ELK (Elasticsearch, Logstash, and Kibana) is used as the
 database for Dark Web Recon. ELK is free, open source, and extremely scaleable.
 Elasticsearch is used to search through the database, Logstash takes in and
 reads log data, and Kibana is the visual front end to the database. ELK allows
-Dark Web Recon to use a database only limited by hardware resources and be
-searched in real time.
+Dark Web Recon to use a database and be searched in real time. The only limitations are hardware resources, add more resources as the need arises.
 
 == Web/Tor Crawler ==
 
-The Web/Tor Crawler class is called by the web front end.
-Dark Web Recon has the capability to crawl any site configured. By default, it
+The _Web/Tor Crawler Class_ is called by the web front end. 
+Dark Web Recon has the capability to crawl any site. By default, it
 honors Robots.txt but allows for a manual override of this setting in the web
 interface. Any use of this feature is the sole responsibility of the user and
 any legal action taken against the user is the responsibility of the user and
@@ -65,16 +62,16 @@ flag enabled, then a proxy is opened for command line access to TOR allowing
 the site to be crawled. The proxy is closed when the crawler has completed. All
 crawls have a _max depth_ setting which limits searches from going on
 indefinitely. The larger the depth, the longer the search will take. As long as
-hardware resources are adequate and time is a non-issue then the crawler will
-work as intended. All data will be sent to the results class which sends the
+hardware resources are adequate; deeper searches are likely to take longer. 
+All data will be sent to the _results class_ which sends the
 crawled information to the Parser.
 
 == IRC Crawler ==
 
 Dark Web Recon has IRC capabilities. If the IRC module is
-chosen in the web front end, then channels name will need to be provided by the
+chosen in the web front end, then one o rmore channel names will need to be provided by the
 user. Dark Web Recon can join as many channels as desired, and each channel
-will run in its own thread. All activity will be monitored for a duration
+will run in a new thread. All activity will be monitored for a duration
 provided by the user. A time interval is specified in the web front end,
 providing a total search time and an interval at which to send data to be
 parsed. 
@@ -86,8 +83,8 @@ modules, and processes any new data received on its own thread. Search terms
 and regular expressions set in the Web front end will be used by the parser to
 match data that will then be sent to the ELK database. Each Crawler sends data
 to the Parser via a _send_result _function call which is defined in the
-Crawler super class. Search terms or regular expressions are added directly to
-the search class via _add_searchterm_ or _add_regexterm_. _ES_Result_
+_Crawler Super Class_. Search terms or regular expressions are added directly to
+the search _class_ via _add_searchterm_ or _add_regexterm_. _ES_Result_
 class is created and pushed directly into Elasticsearch using the _Elasticsearch_DSL_
 library
 
@@ -377,13 +374,10 @@ cd /opt/kibana/config_
 Edit the configuration file and make the
 appropriate changes:
 
-a.   
-Example:
+>_a.   
+_Example:
+>>_i.server.port: 6501_
 
-                                     
-i.server.port: 6501
-
-                                    
 ii.server.host "localhost"
 
 6.   
