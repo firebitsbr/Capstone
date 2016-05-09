@@ -121,7 +121,7 @@ server that will run ELK
 1.   
 Install
 
->_a.   
+>_.   
 sudo apt-get install
 openjdk-7-jre-headless_
 
