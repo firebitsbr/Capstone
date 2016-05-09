@@ -28,8 +28,8 @@ ELK (Elasticsearch, Logstash, and Kibana) is used as the database for Dark Web R
 
 == Web/Tor Crawler ==
 
-The *Web/Tor Crawler Class* is called by the web front end. Dark Web Recon has the capability to crawl any site. By default, it honors Robots.txt but allows for a manual override of this setting in the web interface. Any use of this feature is the sole responsibility of the user and any legal action taken against the user is the responsibility of the user and not of any developers on this project. If the web interface has the *tor* flag enabled, then a proxy is opened for command line access to TOR allowing the site to be crawled. The proxy is closed when the crawler has completed. All crawls have a *max depth* setting which limits searches from going on
-indefinitely. The larger the depth, the longer the search will take. As long as hardware resources are adequate; deeper searches are likely to take longer. All data will be sent to the *results class* which sends the crawled information to the Parser.
+The *Web/Tor Crawler Class* is called by the web front end. Dark Web Recon has the capability to crawl any site. By default, it honors *Robots.txt* but allows for a manual override of this setting in the web interface. Any use of this feature is the sole responsibility of the user and any legal action taken against the user is the responsibility of the user and not of any developers on this project. If the web interface has the *tor* flag enabled, then a proxy is opened for command line access to TOR allowing the site to be crawled. The proxy is closed when the crawler has completed. All crawls have a *max depth* setting which limits searches from going on
+indefinitely. The larger the depth, the longer the search will take (increasing hardware resources will improve performance). All data will be sent to the *results class* which sends the crawled information to the Parser.
 
 == IRC Crawler ==
 
@@ -43,8 +43,7 @@ and regular expressions set in the Web front end will be used by the parser to m
 == ELK System Requirements ==
 
 The ELK hardware requirements really depend upon how much data is being managed. Another main hardware factor is whether the ELK
-stack will be hosted on a single machine or if it will be spread across multiple.
-The following recommendations are taken from [elastic](https://elastic.co/)[.](https://elastic.co/)[co](https://elastic.co/) and are noted as guidance, actual performance may vary.
+stack will be hosted on a single machine or if it will be spread across multiple. The following recommendations are taken from [elastic](https://elastic.co/)[.](https://elastic.co/)[co](https://elastic.co/) and are noted as guidance, actual performance may vary.
 
 **Memory:**
 
