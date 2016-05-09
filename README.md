@@ -316,7 +316,7 @@ sudo update-rc.d kibana defaults 96 9_
 
 == Parse and Module Dependencies ==
 
-The dependencies outlined below are for the parse and modules. A full list of dependencies is available in the requirements.txt file.
+The dependencies outlined below are for the parser and modules. A full list of dependencies is available in the requirements.txt file.
 All dependencies should install with the command ‘*pip install -r requirements.txt*’. In order to install *tor*, use the command '*sudo apt-get install tor*'. The following dependencies should be verified manually.
 
 1.   
