@@ -20,40 +20,25 @@ appropriate crawling module automatically. The crawler will send the results to 
 
 == Web Front End ==
 
-Dark Web Recon’s Web Front end is designed to communicate with the back end components. The user provides a domain, and search terms and instructs the search to run. For *web* and *TOR* domain searches, the query must model ‘*http://[url]/*’. This ensures the web site queried will return possible results. The user can continue to add searches, each of which are threaded and will execute as quickly as the hardware platform allows. The web front-end can be stylized by editing the CSS file as desired by a user.
+Dark Web Recon’s Web Front end is designed to communicate with the back end components. The user provides a domain and search terms and instructs the search to run. For *web* and *TOR* domain searches, the query must model ‘*http://[url]/*’. This ensures the web site queried will return possible results. The user can continue to add searches, each of which are threaded and will execute as quickly as the hardware platform allows. The web front-end can be stylized by editing the CSS file as desired by a user.
 
 == ELK ==
 
-ELK (Elasticsearch, Logstash, and Kibana) is used as the database for Dark Web Recon. ELK is free, open source, and extremely scaleable. Elasticsearch is used to search through the database, Logstash takes in and reads log data, and Kibana is the visual front end to the database. ELK allows Dark Web Recon to use a database and be searched in real time. The only limitations are hardware resources, add more resources as the need arises.
+ELK (Elasticsearch, Logstash, and Kibana) is used as the database for Dark Web Recon. ELK is free, open source, and extremely scaleable. Elasticsearch is used to search through the database, Logstash takes in and reads log data, and Kibana is the visual front end to the database. ELK allows Dark Web Recon to use a database and be searched in real time. The only limitations are hardware resources; add more resources as the need arises.
 
 == Web/Tor Crawler ==
 
 The *Web/Tor Crawler Class* is called by the web front end. Dark Web Recon has the capability to crawl any site. By default, it honors Robots.txt but allows for a manual override of this setting in the web interface. Any use of this feature is the sole responsibility of the user and any legal action taken against the user is the responsibility of the user and not of any developers on this project. If the web interface has the *tor* flag enabled, then a proxy is opened for command line access to TOR allowing the site to be crawled. The proxy is closed when the crawler has completed. All crawls have a *max depth* setting which limits searches from going on
-indefinitely. The larger the depth, the longer the search will take. As long as
-hardware resources are adequate; deeper searches are likely to take longer. 
-All data will be sent to the *results class* which sends the
-crawled information to the Parser.
+indefinitely. The larger the depth, the longer the search will take. As long as hardware resources are adequate; deeper searches are likely to take longer. All data will be sent to the *results class* which sends the crawled information to the Parser.
 
 == IRC Crawler ==
 
-Dark Web Recon has IRC capabilities. If the IRC module is
-chosen in the web front end, then one o rmore channel names will need to be provided by the
-user. Dark Web Recon can join as many channels as desired, and each channel
-will run in a new thread. All activity will be monitored for a duration
-provided by the user. A time interval is specified in the web front end,
-providing a total search time and an interval at which to send data to be
-parsed. 
+Dark Web Recon has IRC capabilities. If the IRC module is chosen in the web front end, then one o rmore channel names will need to be provided by the user. Dark Web Recon can join as many channels as desired, and each channel will run in a new thread. All activity will be monitored for a duration provided by the user. A time interval is specified in the web front end, providing a total search time and an interval at which to send data to be parsed. 
 
 == Parser ==
 
-Dark Web Recon’s Parser accepts data from any Crawler
-modules, and processes any new data received on its own thread. Search terms
-and regular expressions set in the Web front end will be used by the parser to
-match data that will then be sent to the ELK database. Each Crawler sends data
-to the Parser via a *send_result* function call which is defined in the
-*Crawler Super Class*. Search terms or regular expressions are added directly to
-the *search class* via *add_searchterm* or *add_regexterm*. *ES_Result class* is created and pushed directly into Elasticsearch using the *Elasticsearch_DSL*
-library.
+Dark Web Recon’s Parser accepts data from any Crawler modules, and processes any new data received on its own thread. Search terms
+and regular expressions set in the Web front end will be used by the parser to match data that will then be sent to the ELK database. Each Crawler sends data to the Parser via a *send_result* function call which is defined in the *Crawler Super Class*. Search terms or regular expressions are added directly to the *search class* via *add_searchterm* or *add_regexterm*. *ES_Result class* is created and pushed directly into Elasticsearch using the *Elasticsearch_DSL* library.
 
 == ELK System Requirements ==
 
