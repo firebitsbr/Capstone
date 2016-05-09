@@ -24,15 +24,21 @@ def before_first():
 @app.route("/addParam", methods=["POST"])
 def addParam():
     # add new param
-    print("DAD?")
     if request.form['addST']:
         print("Adding searchterm")
-        search().add_searchterm(request.form['addST'])
+	st_terms = request.form['addST'].split(",")
+	for st in st_terms:
+		search().add_searchterm(st)
         # add new search term
     if request.form['addRE']:
-        search().add_regexterm(request.form['addRE'])
+	re_terms = request.form['addRE'].split(",")
+	for re in re_terms:
+		search().add_searchterm(re)
         print("Adding regularexpression")
         # add new regex
+    #if request.form['st_file']:
+	#print(type(request.form['st_file']))
+	#print(request.form['st_file'])
     result = readSearchFile()
     msg = "Successfull added search parameters"
     return render_template("index.html", result=result)
@@ -58,7 +64,7 @@ def createCrawlerConfig():
     print("Post parameters parsed.")
     speed = str(request.form['speed'])
     maxDepth = str(request.form['maxDepth'])
-    location  = str(request.form['location'])
+    location  = request.form['location']
     options_input = str(request.form['options'])
     options = makeOptionsDict(options_input)
     config = CrawlerConfig(location, protocol, speed, maxDepth, searchName, options)
@@ -87,6 +93,7 @@ def createCrawlerConfig():
             search_params.append((label, val))
     result = readSearchFile()
     return render_template("index.html", msg=msg, search_params=search_params, result=result)
+
 
 # read from /tmp/searches.txt and return list of 5 lines
 def readSearchFile():

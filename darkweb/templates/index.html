@@ -85,12 +85,14 @@
 
                 <form name='paramForm' method='post' action='/addParam'>
                     <div class='row'>
+			<input type="file" name="st_file" id="st_file">
                         <label for='addST'>Add Search Term:</label>
-                        <input type='text' name='addST' class="form-control" id='addST' placeholder='add new search term'>
+                        <input type='text' name='addST' class="form-control" id='addST' placeholder='Add new search term. (term1,term2,term3...)'>
                     </div>
                     <div class='row'>
                         <label for='addRE'>Add Regex:</label>
-                        <input type='text' name='addRE' class="form-control" id='addRE' placeholder='add new regular expression'>
+			<input type="file" name="re_file" id="re_file">
+                        <input type='text' name='addRE' class="form-control" id='addRE' placeholder='Add new regular expression. (term1,term2,term3...)'>
                     </div>
                     <div class='row'>
                         <input type='submit' value='Add Keywords'>
@@ -124,7 +126,7 @@
                     </div>
                     <div class="form-group">
                         <label for="maxDepth">Max Crawl Depth:</label>
-                        <input type="text" name="maxDepth" class="form-control" id="maxDepth" placeholder="100 links">
+                        <input type="text" name="maxDepth" class="form-control" id="maxDepth" placeholder="Number of recursive depths">
                     </div>
                     <div class="form-group">
                         <label for="options">Options:</label>
