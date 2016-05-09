@@ -148,25 +148,25 @@ Elasticsearch, add the following repository key:
 5.   
 Add the following Elasticsearch list to the key:
 
->_a.   
+>_   
 echo "deb
 http://packages.elastic.co/elasticsearch/2.x/debian stable main" | sudo
 tee -a /etc/apt/sources.list.d/elasticsearch-2.x.list_
 
->_b.   
+>_   
 sudo apt-get update_
 
 6.   
 Install Elasticsearch:
 
->_a.   
+>_   
 sudo apt-get install -y elasticsearch_
 
 7.   
 Elasticsearch is now installed. The following
 command will open the configuration for editing:
 
->_a.   
+>_   
 sudo vi
 /etc/elasticsearch/elasticsearch.yml_
 
@@ -175,26 +175,26 @@ Now, we will want to restrict access to our
 Elasticsearch instance (port 9200). With the .yml open, find the network.host
 line, uncomment it, and replace its value with "localhost"
 
->_a.   
+>_   
 network.host: localhost_
 
 9.   
 Start service:
 
->_a.   
+>_   
 sudo service elasticsearch start_
 
 10. 
 Test the service
 
->_a.   
+>_   
 curl localhost:9200_
 
 11. 
 The run the following command to start
 Elasticsearch on boot up:
 
->_a.   
+>_   
 sudo update-rc.d elasticsearch defaults
 95 10_
 
@@ -205,32 +205,32 @@ The Logstash package is available from the same
 repository as Elasticsearch. The public key has already been installed, so it’s
 time to create a Logstash source list:
 
->_a.   
+>_   
 echo 'deb http://packages.elastic.co/logstash/2.2/debian
 stable main' | sudo tee /etc/apt/sources.list.d/logstash-2.2.x.list_
 
 2.   
 Update your apt package database:
 
->_a.   
+>_   
 sudo apt-get update_
 
 3.   
 Install Logstash
 
->_a.   
+>_   
 sudo apt-get install logstash_
 
 4.   
 Ensure that logstash will autoboot on start:
 
->_a.   
+>_   
 sudo update-rc.d logstash defaults 97 8_
 
 5.   
 Start logstash:
 
->_a.   
+>_   
 sudo service logstash start_
 
 6.   
@@ -240,7 +240,7 @@ Redirect the System logs to Logstash:
 Create the file "logstash-syslog.conf"
 with the command:
 
->_a.   
+>_   
 touch /etc/logstash/conf.d/logstash-syslog.conf_
 
 8.   
@@ -318,17 +318,17 @@ d HH:mm:ss", "MMM dd HH:mm:ss" ]_
 10. 
 Next, point logstash to the correct config file:
 
->a.   
+>   
 cd /opt/logstash_
 
->b.   
+>   
 bin/logstash -f
 /etc/logstash/conf.d/logstash-syslog.conf_
 
 11. 
 Finally, restart logstash
 
->a.   
+>   
 sudo service logstash restart_
 
 == Installing Kibana ==
@@ -336,7 +336,7 @@ sudo service logstash restart_
 1.   
 Create the Kibana source list:
 
->_a.   
+>_   
 echo "deb
 http://packages.elastic.co/kibana/4.4/debian stable main" | sudo tee -a
 /etc/apt/sources.list.d/kibana-4.4.x.list_
@@ -344,26 +344,26 @@ http://packages.elastic.co/kibana/4.4/debian stable main" | sudo tee -a
 2.   
 Update your apt package database:
 
->_a.   
+>_   
 sudo apt-get update_
 
 3.   
 Install Kibana
 
->_a.   
+>_   
 sudo apt-get install -y kibana_
 
 4.   
 Go to /opt/kibana/config
 
->_a.   
+>_   
 cd /opt/kibana/config_
 
 5.   
 Edit the configuration file and make the
 appropriate changes:
 
->_a.   
+>_   
 _Example:
 >>_i.server.port: 6501_
 
@@ -372,7 +372,7 @@ ii.server.host "localhost"
 6.   
 Auto start:
 
->_a.   
+>_   
 sudo update-rc.d kibana defaults 96 9_
 
 == Parse and Module Dependencies ==
