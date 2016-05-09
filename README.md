@@ -76,60 +76,44 @@ sudo apt-get install
 openjdk-7-jre-headless_
 2.   
 Verify the Java Installation
-
 >_   
 java -version_
-
 3.   
 Update Linux packages
-
 >_   
 sudo apt-get update && sudo
 apt-get upgrade_
-
 4.   
 To begin the process of installing
 Elasticsearch, add the following repository key:
-
->_a.   
+>_   
  wget -O - http://packages.elastic.co/GPG-KEY-elasticsearch | apt-key add_
-
 5.   
 Add the following Elasticsearch list to the key:
-
 >_   
 echo "deb
 http://packages.elastic.co/elasticsearch/2.x/debian stable main" | sudo
 tee -a /etc/apt/sources.list.d/elasticsearch-2.x.list_
-
 >_   
 sudo apt-get update_
-
 6.   
 Install Elasticsearch:
-
 >_   
 sudo apt-get install -y elasticsearch_
-
 7.   
 Elasticsearch is now installed. The following
 command will open the configuration for editing:
-
 >_   
 sudo vi
 /etc/elasticsearch/elasticsearch.yml_
-
 8.   
 To restrict access to our
 Elasticsearch instance (port 9200). With the .yml open, find the network.host
 line, uncomment it, and replace its value with "localhost"
-
 >_   
 network.host: localhost_
-
 9.   
 Start service:
-
 >_   
 sudo service elasticsearch start_
 
