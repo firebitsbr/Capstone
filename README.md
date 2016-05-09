@@ -24,8 +24,6 @@ Parser, the Web Front End, A Web/TOR Crawler, and an IRC Crawler. A server
 needs to be configured with an ELK stack in place (Elasticsearch, Logstash, and
 Kibana) which will act as the database for all search queries.
 
- 
-
 To use the program, once properly configured a user will
 enter a query in the user friendly web interface, which will be sent to the
 appropriate crawling module automatically. The crawler will send the results to
@@ -35,11 +33,7 @@ interface for Kibana lets a user view any queries made and use the data how
 they see fit. Kibana can be configured to render graphs and pie charts of
 results found. Component breakdowns are included below:
 
- 
-
 == Web Front End ==
-
- 
 
 Dark Web Recon’s Web Front end is designed to communicate
 with the back end components, making it more user friendly. The user provides a
@@ -50,11 +44,7 @@ searches, each of which are threaded and will execute as quickly as the
 hardware platform allows. The web front-end can be stylized by editing the CSS
 file as desired by a user.
 
- 
-
 == ELK ==
-
- 
 
 ELK (Elasticsearch, Logstash, and Kibana) is used as the
 database for Dark Web Recon. ELK is free, open source, and extremely scaleable.
@@ -63,11 +53,7 @@ reads log data, and Kibana is the visual front end to the database. ELK allows
 Dark Web Recon to use a database only limited by hardware resources and be
 searched in real time.
 
- 
-
 == Web/Tor Crawler ==
-
- 
 
 The Web/Tor Crawler class is called by the web front end.
 Dark Web Recon has the capability to crawl any site configured. By default, it
@@ -83,11 +69,7 @@ hardware resources are adequate and time is a non-issue then the crawler will
 work as intended. All data will be sent to the results class which sends the
 crawled information to the Parser.
 
- 
-
 == IRC Crawler ==
-
- 
 
 Dark Web Recon has IRC capabilities. If the IRC module is
 chosen in the web front end, then channels name will need to be provided by the
@@ -97,11 +79,7 @@ provided by the user. A time interval is specified in the web front end,
 providing a total search time and an interval at which to send data to be
 parsed. 
 
- 
-
 == Parser ==
-
- 
 
 Dark Web Recon’s Parser accepts data from any Crawler
 modules, and processes any new data received on its own thread. Search terms
@@ -113,11 +91,7 @@ the search class via _add_searchterm_ or _add_regexterm_. _ES_Result_
 class is created and pushed directly into Elasticsearch using the _Elasticsearch_DSL_
 library
 
- 
-
 == ELK System Requirements ==
-
- 
 
 The ELK hardware requirements really depend upon how much
 data you plan on pulling on in. Another main hardware factor is whether the ELK
@@ -125,15 +99,11 @@ stack will be hosted on a single machine or if it will be spread across many.
 The following recommendations are taken from [elastic](https://elastic.co/)[.](https://elastic.co/)[co](https://elastic.co/) and are noted as guidance, actualy
 performance may vary.
 
- 
-
 **Memory:**
 
 16GB and 32GB RAM are a common starting point for ELK stacks
 with upwards of 64GB RAM being the sweet spot for large amounts of data
 processing.
-
- 
 
 **CPU’s:**
 
@@ -142,8 +112,6 @@ CPU to really use. Generally speaking, you should choose a modern processor
 with multiple cores that has anywhere from 2 to 8 cores. More cores will only
 improve performance. 
 
- 
-
 **Disks:**
 
 Disk space depends directly upon how much (in GB) of logs
@@ -151,31 +119,24 @@ you are pulling in. Multiple TB HDDs will do you just fine but SSD are
 obviously the best choice if you can afford them for the project as it will net
 substantially greater performance.
 
- 
-
 **Network:**
 
 If you are going to split up the stack, crawlers, parser,
 etc. then latency can certainly become an issue. Modern data-center networking
 of 1GbE, 10 GbE is sufficient for the majority of cluster applications. 
 
- 
-
 [https](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[://](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[www](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[.](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[elastic](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[.](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[co](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[/](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[guide](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[/](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[en](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[/](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[elasticsearch](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[/](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[guide](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[/](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[current](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[/](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[hardware](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[.](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)[html](https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html)
-
- 
 
 == ELK Installation ==  
   
-
 The following should be run from the command line on the
 server that will run ELK
 
 1.   
 Install
 
-_a.   
-_sudo apt-get install
+>_a.   
+sudo apt-get install
 openjdk-7-jre-headless_
 
 2.   
