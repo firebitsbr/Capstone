@@ -1,3 +1,6 @@
+"""
+
+"""
 import subprocess
 import ssl
 import socket
@@ -12,10 +15,12 @@ from es_result import es_result
 class parser(SocketServer.BaseRequestHandler):
     cert_file="rsa.crt"
     key_file="rsa.key"
-    #st=["dad"]
-    #re=["dad"]
-    #search = Search(st,re)
 
+    """
+    setup
+    Initialize ElasticSearch connection
+    Future work: Initialize SSL for when we actually use TLS
+    """
     def setup(self):
         #self.context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
         #self.context.load_cert_chain(certfile=self.cert_file, keyfile=self.key_file)
@@ -23,6 +28,11 @@ class parser(SocketServer.BaseRequestHandler):
         es_result.init();
         print("parser.py - setup end")
 
+    """
+    handle
+    Handle a new connection from a crawler
+    Future work: Handle SSL (uncomment that wrap_socket)
+    """
     def handle(self):
         print("New connection from " + str(self.client_address))
         #connstream = self.context.wrap_socket(self.request, server_side=True)
@@ -44,6 +54,10 @@ class parser(SocketServer.BaseRequestHandler):
             connstream.shutdown(socket.SHUT_RDWR)
             connstream.close()
 
+    """
+    decode
+    Decode a Python object from JSON
+    """
     def decode(self,data):
         try:
             resp=jsonpickle.decode(data)
@@ -53,6 +67,10 @@ class parser(SocketServer.BaseRequestHandler):
             print("Failed to decode... probably still receiving. Data:\n" + str(data))
             return None
 
+    """
+    parse_result
+    Parse a search result and push it into ElasticSearch
+    """
     def parse_result(self, connstream, r):
         if r != None and isinstance(r,Result):
             if r.data:
@@ -98,7 +116,3 @@ class parser(SocketServer.BaseRequestHandler):
             return True
         return False
 
-    #def run(self, port):
-    #    HOST, PORT = "0.0.0.0", port
-    #    parser = socketserver.TCPServer((HOST, PORT), parser)
-    #    parser.serve_forever()
