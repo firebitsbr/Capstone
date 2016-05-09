@@ -156,8 +156,8 @@ apt-get upgrade_
 To begin the process of installing
 Elasticsearch, add the following repository key:
 
-a.   
- wget -O - http://packages.elastic.co/GPG-KEY-elasticsearch | apt-key add -
+>_a.   
+ wget -O - http://packages.elastic.co/GPG-KEY-elasticsearch | apt-key add_
 
 5.   
 Add the following Elasticsearch list to the key:
