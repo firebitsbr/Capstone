@@ -6,11 +6,11 @@ Version: 1.0
 License: GPLv2  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html  
 
-Dark Web Recon is a tool designed to have a web front end where a user can direct a search term towards a input resource, such as a web address or IRC channel and parameters for which they would like to search. The searches run through modules tied to the selected protocol and sent to a preconfigured, already in-place Elasticsearch Database.
+Dark Web Recon is a tool designed to have a web front end where a user can direct a search term towards a input resource, such as a web address or IRC channel and specify parameters to search. The searches run through modules tied to the selected protocol and send to a preconfigured, already in-place Elasticsearch Database.
 
 == Description ==  
 
-Dark Web Recon was designed at Rochester Institute of Technology as a way to search for information on the Dark Web. We have developed with extensibility in mind and provide the ability to add new crawling modules. Using the *parent classes* a developer can easily create their own unique crawler modules to work with the developed parser.
+Dark Web Recon was designed at Rochester Institute of Technology as a way to search for information on the Dark Web. This product has been developed with extensibility in mind and provide the ability to add new crawling modules. Using the *parent classes* a developer can easily create their own unique crawler modules to work with the developed parser.
 
 The following components are included in version 1.0: The Parser, the Web Front End, A Web/TOR Crawler, and an IRC Crawler. A server
 needs to be configured with an ELK stack in place (Elasticsearch, Logstash, and Kibana) which will act as the database that will store all successful search queries.
@@ -20,8 +20,7 @@ appropriate crawling module automatically. The crawler will send the results to 
 
 == Web Front End ==
 
-Dark Web Recon’s Web Front end is designed to communicate with the back end components. The user provides a domain, and search terms and instructs the search to run. For *web* and *TOR* domain searches, the query must model ‘*http://[url]/*’. This ensures
-the web site queried will return possible results. The user can continue to add searches, each of which are threaded and will execute as quickly as the hardware platform allows. The web front-end can be stylized by editing the CSS file as desired by a user.
+Dark Web Recon’s Web Front end is designed to communicate with the back end components. The user provides a domain, and search terms and instructs the search to run. For *web* and *TOR* domain searches, the query must model ‘*http://[url]/*’. This ensures the web site queried will return possible results. The user can continue to add searches, each of which are threaded and will execute as quickly as the hardware platform allows. The web front-end can be stylized by editing the CSS file as desired by a user.
 
 == ELK ==
 
@@ -29,9 +28,7 @@ ELK (Elasticsearch, Logstash, and Kibana) is used as the database for Dark Web R
 
 == Web/Tor Crawler ==
 
-The *Web/Tor Crawler Class* is called by the web front end. Dark Web Recon has the capability to crawl any site. By default, it honors Robots.txt but allows for a manual override of this setting in the web interface. Any use of this feature is the sole responsibility of the user and any legal action taken against the user is the responsibility of the user and not of any developers on this project. If the web interface has the *tor* flag enabled, then a proxy is opened for command line access to TOR allowing
-the site to be crawled. The proxy is closed when the crawler has completed. All
-crawls have a *max depth* setting which limits searches from going on
+The *Web/Tor Crawler Class* is called by the web front end. Dark Web Recon has the capability to crawl any site. By default, it honors Robots.txt but allows for a manual override of this setting in the web interface. Any use of this feature is the sole responsibility of the user and any legal action taken against the user is the responsibility of the user and not of any developers on this project. If the web interface has the *tor* flag enabled, then a proxy is opened for command line access to TOR allowing the site to be crawled. The proxy is closed when the crawler has completed. All crawls have a *max depth* setting which limits searches from going on
 indefinitely. The larger the depth, the longer the search will take. As long as
 hardware resources are adequate; deeper searches are likely to take longer. 
 All data will be sent to the *results class* which sends the
@@ -146,7 +143,7 @@ sudo vi
 /etc/elasticsearch/elasticsearch.yml_
 
 8.   
-Now, we will want to restrict access to our
+To restrict access to our
 Elasticsearch instance (port 9200). With the .yml open, find the network.host
 line, uncomment it, and replace its value with "localhost"
 
@@ -253,8 +250,7 @@ collect all files with .log extention in /var/log, /var/log/messages and
 /var/log/syslog.
 
 9.   
-Next, we will create a filter to prevent
-Elasticsearch to store logs in the message field and simplify the analysis.
+To reate a filter to prevent Elasticsearch to store logs in the message field and simplify the analysis.
 
 >_filter {_
 
@@ -264,12 +260,10 @@ Elasticsearch to store logs in the message field and simplify the analysis.
 >>_grok {_
 
 >>>_match =&gt; {
-"message" =&gt; "%{SYSLOGTIMESTAMP:syslog_timestamp}
-%{SYSLOGHOST:syslog_hostname} %{DATA:syslog_program}(?:\[%{POSINT:syslog_pid}\])?:
+"message" =&gt; "%{SYSLOGTIMESTAMP:syslog_timestamp} %{SYSLOGHOST:syslog_hostname}%{DATA:syslog_program}(?:\[%{POSINT:syslog_pid}\])?:
 %{GREEDYDATA:syslog_message}" }_
 
->>>_add_field
-=&gt; [ "received_at", "%{@timestamp}" ]_
+>>>_add_field=&gt; [ "received_at", "%{@timestamp}" ]_
 
 >>>_add_field
 =&gt; [ "received_from", "%{host}" ]_
