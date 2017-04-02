@@ -3,8 +3,7 @@
 Contributors: Jacob Dresdale, Joey Fitzpatrick, Edward Mead, Aaron Pinzer,
 Jimmy Trimer, and Bill Stackpole
 Version: 1.0  
-License: GPLv2  
-License URL: http://www.gnu.org/licenses/gpl-2.0.html  
+License: See license file
 
 Dark Web Recon is a tool designed to have a web front end where a user can direct a search term towards a input resource, such as a web address or IRC channel and specify parameters to search. The searches run through modules tied to the selected protocol and send to a preconfigured, already in-place Elasticsearch Database.
 
